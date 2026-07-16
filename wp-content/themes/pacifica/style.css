@@ -1,0 +1,22 @@
+/*!
+Theme Name: Pacífica
+Theme URI: https://pacifica.mx/
+Author: Pacífica Panadería — Agency Build
+Author URI: https://pacifica.mx/
+Description: A premium block theme for Pacífica Panadería, an artisan sourdough bakery in Cuernavaca, México. Full Site Editing, WooCommerce-ready, WCAG AA, and built around the "Horno & Trigo" design system.
+Requires at least: 6.8
+Tested up to: 6.8
+Requires PHP: 8.3
+Version: 1.0.0
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: pacifica
+Tags: full-site-editing, block-patterns, block-styles, e-commerce, custom-colors, custom-logo, editor-style, featured-images, translation-ready, accessibility-ready
+*/
+
+/*
+ * Design tokens live in theme.json and are emitted as --wp--preset--* / --wp--custom--* vars.
+ * Runtime styles that are impractical in theme.json (animations, complex layout,
+ * WooCommerce overrides) live in assets/css/*.css, enqueued from functions.php.
+ * This file intentionally holds only the required theme header.
+ */

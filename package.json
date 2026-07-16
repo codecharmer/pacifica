@@ -1,0 +1,33 @@
+{
+  "name": "pacifica",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Pacífica Panadería — premium WordPress build (block theme + pacifica-core plugin). Root workspace: tooling, local dev, and asset builds.",
+  "author": "Pacífica Panadería — Agency Build",
+  "license": "GPL-2.0-or-later",
+  "engines": {
+    "node": ">=20",
+    "npm": ">=10"
+  },
+  "workspaces": [
+    "wp-content/themes/pacifica"
+  ],
+  "scripts": {
+    "build": "npm run build --workspace=wp-content/themes/pacifica",
+    "start": "npm run start --workspace=wp-content/themes/pacifica",
+    "lint:js": "npm run lint:js --workspace=wp-content/themes/pacifica",
+    "lint:css": "npm run lint:css --workspace=wp-content/themes/pacifica",
+    "lint": "npm run lint:js && npm run lint:css",
+    "format": "npm run format --workspace=wp-content/themes/pacifica",
+    "env": "wp-env",
+    "env:start": "wp-env start",
+    "env:stop": "wp-env stop",
+    "env:clean": "wp-env clean all",
+    "env:cli": "wp-env run cli wp",
+    "env:install-content": "wp-env run cli wp pacifica install",
+    "postinstall": "node -e \"console.log('\\n[pacifica] Node deps installed. Next: `composer install` (PHP tooling), then `npm run env:start` to boot the local WordPress, then `npm run build` to compile future SCSS/JS entries. See docs/setup.md.')\""
+  },
+  "devDependencies": {
+    "@wordpress/env": "^10.0.0"
+  }
+}

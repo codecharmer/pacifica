@@ -1,0 +1,34 @@
+{
+  "$schema": "https://raw.githubusercontent.com/WordPress/gutenberg/trunk/schemas/json/wp-env.json",
+  "core": null,
+  "phpVersion": "8.3",
+  "plugins": [
+    "https://downloads.wordpress.org/plugin/woocommerce.zip",
+    "./wp-content/plugins/pacifica-core"
+  ],
+  "themes": [
+    "./wp-content/themes/pacifica"
+  ],
+  "mappings": {
+    "wp-content/plugins/pacifica-core": "./wp-content/plugins/pacifica-core",
+    "wp-content/themes/pacifica": "./wp-content/themes/pacifica"
+  },
+  "config": {
+    "WP_DEBUG": true,
+    "WP_DEBUG_LOG": true,
+    "WP_DEBUG_DISPLAY": false,
+    "SCRIPT_DEBUG": true,
+    "WP_ENVIRONMENT_TYPE": "local"
+  },
+  "lifecycleScripts": {
+    "afterStart": "echo '[pacifica] wp-env is up. Activate WooCommerce, the Pacífica theme and Pacífica Core, then seed demo content with:  wp-env run cli wp pacifica install   (see docs/setup.md).'"
+  },
+  "env": {
+    "tests": {
+      "config": {
+        "WP_DEBUG": true,
+        "SCRIPT_DEBUG": true
+      }
+    }
+  }
+}

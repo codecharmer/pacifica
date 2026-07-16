@@ -1,0 +1,56 @@
+/**
+ * Pacífica — editor canvas styles.
+ *
+ * theme.css is also loaded into the editor (see inc/setup.php add_editor_style),
+ * so the block-style looks already mirror the front end. This file only
+ * neutralises runtime-only behaviours that would otherwise hide or misplace
+ * content while editing, and mirrors a few front-end niceties the canvas needs.
+ *
+ * @package Pacifica
+ */
+
+/* Reveal elements must be fully visible while editing. */
+.editor-styles-wrapper .pf-reveal,
+.editor-styles-wrapper .pf-reveal-group > * {
+	opacity: 1 !important;
+	transform: none !important;
+	animation: none !important;
+}
+
+/* The header is never sticky/fixed inside the canvas. */
+.editor-styles-wrapper header.wp-block-template-part,
+.editor-styles-wrapper .pf-header {
+	position: static !important;
+}
+
+/* In the canvas the transparent header sits on a light background, so keep its
+ * text legible instead of the over-hero linen treatment. */
+.editor-styles-wrapper .pf-header--transparent {
+	background-color: var(--wp--preset--color--masa);
+}
+
+.editor-styles-wrapper .pf-header--transparent .wp-block-site-title a,
+.editor-styles-wrapper .pf-header--transparent .pf-nav a {
+	color: var(--wp--preset--color--crust-soft);
+}
+
+.editor-styles-wrapper .pf-header--transparent .pf-header__cta .wp-block-button__link {
+	background-color: var(--wp--preset--color--clay);
+	color: var(--wp--preset--color--linen);
+}
+
+/* Give the dark footer part a readable frame in the light canvas. */
+.editor-styles-wrapper .pf-footer {
+	border-radius: var(--wp--custom--radius--md);
+}
+
+/* Eyebrow / script accent previews read the same as the front end. */
+.editor-styles-wrapper .is-style-eyebrow {
+	text-transform: uppercase;
+	letter-spacing: 0.14em;
+}
+
+/* Keep card hover lift from firing on the editor's selection interactions. */
+.editor-styles-wrapper .wp-block-group.is-style-card:hover {
+	transform: none;
+}

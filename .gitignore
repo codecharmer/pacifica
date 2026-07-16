@@ -1,0 +1,53 @@
+# === Dependencies (managed by npm / Composer) ===
+node_modules/
+vendor/
+
+# === Build artifacts from @wordpress/scripts ===
+# Compiled output of the optional SCSS/JS pipeline (src/ -> assets/build/).
+wp-content/themes/pacifica/assets/build/
+build/
+
+# Minified/generated variants (source of truth is the unminified authored file).
+*.min.css
+*.min.js
+*.min.css.map
+*.min.js.map
+*.map
+
+# === Local dev (@wordpress/env) ===
+# wp-env keeps its Docker state and generated overrides outside the repo,
+# but ignore any local override that a developer drops in.
+.wp-env.override.json
+
+# === Secrets / local config — never commit ===
+.env
+.env.*
+!.env.example
+wp-config-local.php
+*.local.php
+
+# === OS / editor cruft ===
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# === Logs & caches ===
+*.log
+.phpunit.result.cache
+.phpcs.cache
+.phpstan.cache
+
+# ---------------------------------------------------------------------------
+# INTENTIONALLY TRACKED (do NOT ignore) — documented so nobody re-adds these:
+#   - wp-content/themes/pacifica/assets/css/*.css  (hand-authored runtime CSS)
+#   - wp-content/themes/pacifica/assets/js/*.js    (hand-authored enhance.js)
+#   - wp-content/plugins/pacifica-core/assets/**   (plugin admin CSS/JS)
+#   - data/media/source/** placeholders + README   (media importer targets)
+#   - wp-content/themes/pacifica/src/**            (SCSS/JS build sources)
+# The rules above only match minified/compiled output, so these are safe.
+# ---------------------------------------------------------------------------

@@ -1,0 +1,308 @@
+/**
+ * Pacífica — WooCommerce elevation.
+ *
+ * Lifts the WooCommerce block UI (product grids, cards, buttons, cart,
+ * checkout, notices) to the premium editorial look. No generic Woo styling —
+ * everything derives from theme.json tokens. Loaded only on commerce views
+ * (see inc/assets.php).
+ *
+ * @package Pacifica
+ */
+
+/* -------------------------------------------------------------------------
+ * 1. Product grid & cards
+ * ---------------------------------------------------------------------- */
+
+.pf-product-grid .wc-block-product-template,
+.pf-product-grid.wp-block-woocommerce-product-collection > .wc-block-product-template {
+	gap: var(--wp--preset--spacing--lg);
+}
+
+/* Product image inside a card. */
+.pf-product-card .wc-block-components-product-image img,
+.pf-product-card .wp-block-woocommerce-product-image img {
+	border-radius: var(--wp--custom--radius--md);
+}
+
+.pf-product-card .wp-block-post-title a,
+.pf-product-card .wc-block-components-product-name {
+	font-family: var(--wp--preset--font-family--display);
+	color: var(--wp--preset--color--crust);
+	text-decoration: none;
+}
+
+.pf-product-card .wc-block-components-product-price,
+.wc-block-components-product-price {
+	color: var(--wp--preset--color--crust-soft);
+	font-weight: 600;
+}
+
+.wc-block-components-product-price__regular {
+	color: var(--wp--preset--color--stone);
+}
+
+.wc-block-components-product-price ins,
+.wc-block-components-product-price__value.is-discounted {
+	color: var(--wp--preset--color--clay-deep);
+	text-decoration: none;
+}
+
+/* Sale badge — warm pill. */
+.wc-block-components-product-sale-badge {
+	background-color: var(--wp--preset--color--trigo);
+	color: var(--wp--preset--color--crust);
+	border-radius: var(--wp--custom--radius--pill);
+	font-family: var(--wp--preset--font-family--body);
+	font-weight: 600;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+	font-size: var(--wp--preset--font-size--sm);
+	padding: 0.2rem 0.7rem;
+}
+
+/* -------------------------------------------------------------------------
+ * 2. Buttons — block + classic add-to-cart
+ * ---------------------------------------------------------------------- */
+
+.wc-block-components-product-button .wp-block-button__link,
+.wc-block-components-button.contained,
+.wc-block-components-button.wc-block-components-button:not(.is-link),
+.woocommerce a.button,
+.woocommerce button.button,
+.single_add_to_cart_button {
+	background-color: var(--wp--preset--color--clay);
+	color: var(--wp--preset--color--linen);
+	border: 0;
+	border-radius: var(--wp--custom--radius--pill);
+	font-family: var(--wp--preset--font-family--body);
+	font-weight: 600;
+	letter-spacing: 0.01em;
+	padding: 0.85rem 1.6rem;
+	box-shadow: none;
+	transition:
+		background-color var(--wp--custom--duration--base) var(--wp--custom--easing--standard),
+		transform var(--wp--custom--duration--fast) var(--wp--custom--easing--standard);
+}
+
+.wc-block-components-product-button .wp-block-button__link:hover,
+.wc-block-components-button.contained:hover,
+.wc-block-components-button:not(.is-link):hover,
+.woocommerce a.button:hover,
+.woocommerce button.button:hover,
+.single_add_to_cart_button:hover,
+.wc-block-components-product-button .wp-block-button__link:focus-visible,
+.single_add_to_cart_button:focus-visible {
+	background-color: var(--wp--preset--color--clay-deep);
+	color: var(--wp--preset--color--linen);
+	transform: translateY(-1px);
+}
+
+/* Secondary / outlined actions. */
+.wc-block-components-button.outlined {
+	color: var(--wp--preset--color--clay-deep);
+	border: 1.5px solid currentColor;
+	border-radius: var(--wp--custom--radius--pill);
+	background-color: transparent;
+}
+
+.wc-block-components-button.wc-block-components-button.is-link {
+	color: var(--wp--preset--color--clay-deep);
+}
+
+/* Quantity selector. */
+.wc-block-components-quantity-selector {
+	border: 1px solid color-mix(in srgb, var(--wp--preset--color--crust) 15%, transparent);
+	border-radius: var(--wp--custom--radius--pill);
+	overflow: hidden;
+}
+
+/* -------------------------------------------------------------------------
+ * 3. Shop toolbar (results count + sorting)
+ * ---------------------------------------------------------------------- */
+
+.pf-shop-toolbar {
+	padding-bottom: var(--wp--preset--spacing--xs);
+	border-bottom: 1px solid color-mix(in srgb, var(--wp--preset--color--crust) 10%, transparent);
+}
+
+.wc-block-catalog-sorting select,
+.woocommerce-ordering select,
+.wc-block-sort-select__select {
+	border: 1px solid color-mix(in srgb, var(--wp--preset--color--crust) 15%, transparent);
+	border-radius: var(--wp--custom--radius--pill);
+	background-color: var(--wp--preset--color--linen);
+	padding: 0.5rem 2rem 0.5rem 1rem;
+	font-family: var(--wp--preset--font-family--body);
+	color: var(--wp--preset--color--crust-soft);
+}
+
+.wc-block-components-product-results-count,
+.woocommerce-result-count {
+	color: var(--wp--preset--color--stone);
+}
+
+/* Breadcrumbs. */
+.wc-block-breadcrumbs,
+.woocommerce-breadcrumb {
+	color: var(--wp--preset--color--stone);
+	font-size: var(--wp--preset--font-size--sm);
+}
+
+.wc-block-breadcrumbs a,
+.woocommerce-breadcrumb a {
+	color: var(--wp--preset--color--clay-deep);
+	text-decoration: none;
+}
+
+/* -------------------------------------------------------------------------
+ * 4. Single product
+ * ---------------------------------------------------------------------- */
+
+.pf-product-summary .wc-block-components-product-price,
+.woocommerce-Price-amount {
+	font-family: var(--wp--preset--font-family--display);
+	font-size: var(--wp--preset--font-size--lg);
+	color: var(--wp--preset--color--crust);
+}
+
+.pf-product .woocommerce-product-gallery img,
+.wp-block-woocommerce-product-image-gallery img {
+	border-radius: var(--wp--custom--radius--md);
+}
+
+.star-rating,
+.wc-block-components-product-rating__stars {
+	color: var(--wp--preset--color--trigo);
+}
+
+.woocommerce-tabs ul.tabs,
+.wc-block-product-details {
+	border-color: color-mix(in srgb, var(--wp--preset--color--crust) 10%, transparent);
+}
+
+.woocommerce-tabs ul.tabs li.active a {
+	color: var(--wp--preset--color--clay-deep);
+}
+
+.product_meta {
+	color: var(--wp--preset--color--stone);
+	font-size: var(--wp--preset--font-size--sm);
+}
+
+/* -------------------------------------------------------------------------
+ * 5. Cart & checkout
+ * ---------------------------------------------------------------------- */
+
+.wc-block-cart,
+.wc-block-checkout {
+	color: var(--wp--preset--color--crust-soft);
+}
+
+.wc-block-cart-items,
+.wc-block-checkout__main {
+	background-color: transparent;
+}
+
+/* Totals / order summary panel → card. */
+.wc-block-components-totals-wrapper,
+.wc-block-components-sidebar .wc-block-components-panel,
+.wp-block-woocommerce-cart-totals-block,
+.wc-block-components-order-summary {
+	background-color: var(--wp--preset--color--linen);
+	border-radius: var(--wp--custom--radius--lg);
+}
+
+.wc-block-cart__totals-title,
+.wc-block-components-checkout-step__title,
+.wc-block-components-order-summary__title {
+	font-family: var(--wp--preset--font-family--display);
+	color: var(--wp--preset--color--crust);
+}
+
+.wc-block-components-checkout-step {
+	border-bottom: 1px solid color-mix(in srgb, var(--wp--preset--color--crust) 8%, transparent);
+	padding-bottom: var(--wp--preset--spacing--md);
+	margin-bottom: var(--wp--preset--spacing--md);
+}
+
+.wc-block-components-totals-item__value {
+	color: var(--wp--preset--color--crust);
+	font-weight: 600;
+}
+
+.wc-block-components-totals-footer-item {
+	font-family: var(--wp--preset--font-family--display);
+	color: var(--wp--preset--color--crust);
+}
+
+/* Form fields. */
+.wc-block-components-text-input input,
+.wc-block-components-select .wc-block-components-select__container,
+.wc-block-components-textarea {
+	border-radius: var(--wp--custom--radius--md);
+	border-color: color-mix(in srgb, var(--wp--preset--color--crust) 18%, transparent);
+	background-color: var(--wp--preset--color--linen);
+}
+
+.wc-block-components-text-input input:focus,
+.wc-block-components-textarea:focus {
+	outline: 2px solid var(--wp--preset--color--clay-deep);
+	outline-offset: 1px;
+}
+
+.wc-block-components-text-input.is-active label {
+	color: var(--wp--preset--color--clay-deep);
+}
+
+/* -------------------------------------------------------------------------
+ * 6. Notices
+ * ---------------------------------------------------------------------- */
+
+.wc-block-components-notice-banner {
+	border-radius: var(--wp--custom--radius--md);
+	font-family: var(--wp--preset--font-family--body);
+}
+
+.wc-block-components-notice-banner.is-success {
+	background-color: color-mix(in srgb, var(--wp--preset--color--olivo) 14%, var(--wp--preset--color--linen));
+	border-color: var(--wp--preset--color--olivo);
+	color: var(--wp--preset--color--crust);
+}
+
+.wc-block-components-notice-banner.is-info {
+	background-color: color-mix(in srgb, var(--wp--preset--color--trigo) 16%, var(--wp--preset--color--linen));
+	border-color: var(--wp--preset--color--trigo);
+	color: var(--wp--preset--color--crust);
+}
+
+.wc-block-components-notice-banner.is-error {
+	background-color: color-mix(in srgb, var(--wp--preset--color--clay) 12%, var(--wp--preset--color--linen));
+	border-color: var(--wp--preset--color--clay-deep);
+	color: var(--wp--preset--color--crust);
+}
+
+/* Stock / availability. */
+.stock.out-of-stock,
+.wc-block-components-product-badge {
+	color: var(--wp--preset--color--clay-deep);
+}
+
+/* Local-pickup emphasis. */
+.wc-block-checkout__shipping-method .wc-block-components-radio-control__option--checked {
+	border-color: var(--wp--preset--color--clay);
+}
+
+/* -------------------------------------------------------------------------
+ * 7. Order confirmation
+ * ---------------------------------------------------------------------- */
+
+.wc-block-order-confirmation-status,
+.woocommerce-order-overview {
+	font-family: var(--wp--preset--font-family--display);
+	color: var(--wp--preset--color--crust);
+}
+
+.wc-block-order-confirmation-summary,
+.wc-block-order-confirmation-totals {
+	border-radius: var(--wp--custom--radius--lg);
+}

@@ -1,0 +1,57 @@
+<!-- wp:template-part {"slug":"header","area":"header","tagName":"header"} /-->
+
+<!-- wp:group {"tagName":"main","metadata":{"name":"Contenido principal"},"anchor":"pf-main","className":"pf-main pf-confirmation","layout":{"type":"default"}} -->
+<main id="pf-main" class="wp-block-group pf-main pf-confirmation">
+	<!-- wp:group {"className":"pf-confirmation-wrap","layout":{"type":"constrained","wideSize":"820px"},"style":{"spacing":{"padding":{"top":"var:preset|spacing|xl","bottom":"var:preset|spacing|xxl"},"blockGap":"var:preset|spacing|lg"}}} -->
+	<div class="wp-block-group pf-confirmation-wrap" style="padding-top:var(--wp--preset--spacing--xl);padding-bottom:var(--wp--preset--spacing--xxl)">
+		<!-- wp:group {"layout":{"type":"constrained"},"style":{"spacing":{"blockGap":"var:preset|spacing|xxs"}}} -->
+		<div class="wp-block-group">
+			<!-- wp:heading {"level":2,"className":"is-style-eyebrow","fontSize":"sm","textColor":"clay-deep"} -->
+			<h2 class="wp-block-heading is-style-eyebrow has-clay-deep-color has-text-color has-sm-font-size">Pedido confirmado</h2>
+			<!-- /wp:heading -->
+			<!-- wp:heading {"level":1,"fontSize":"xxl"} -->
+			<h1 class="wp-block-heading has-xxl-font-size">Gracias por tu pedido</h1>
+			<!-- /wp:heading -->
+			<!-- wp:woocommerce/order-confirmation-status {"fontSize":"md"} /-->
+		</div>
+		<!-- /wp:group -->
+
+		<!-- wp:woocommerce/order-confirmation-summary {"className":"is-style-card"} /-->
+
+		<!-- wp:woocommerce/order-confirmation-totals {"className":"is-style-hairline"} /-->
+
+		<!-- wp:columns {"style":{"spacing":{"blockGap":{"top":"var:preset|spacing|md","left":"var:preset|spacing|lg"}}}} -->
+		<div class="wp-block-columns">
+			<!-- wp:column -->
+			<div class="wp-block-column">
+				<!-- wp:woocommerce/order-confirmation-shipping-address /-->
+			</div>
+			<!-- /wp:column -->
+			<!-- wp:column -->
+			<div class="wp-block-column">
+				<!-- wp:woocommerce/order-confirmation-billing-address /-->
+			</div>
+			<!-- /wp:column -->
+		</div>
+		<!-- /wp:columns -->
+
+		<!-- wp:woocommerce/order-confirmation-additional-fields /-->
+		<!-- wp:woocommerce/order-confirmation-additional-information /-->
+
+		<!-- wp:paragraph {"className":"pf-pickup-note","fontSize":"sm","textColor":"olivo"} -->
+		<p class="pf-pickup-note has-olivo-color has-text-color has-sm-font-size">Te enviaremos un mensaje cuando tu pedido esté listo para recoger. Gracias por apoyar el oficio.</p>
+		<!-- /wp:paragraph -->
+
+		<!-- wp:buttons {"style":{"spacing":{"margin":{"top":"var:preset|spacing|sm"}}}} -->
+		<div class="wp-block-buttons">
+			<!-- wp:button {"className":"is-style-ghost"} -->
+			<div class="wp-block-button is-style-ghost"><a class="wp-block-button__link wp-element-button" href="/menu">Volver al menú</a></div>
+			<!-- /wp:button -->
+		</div>
+		<!-- /wp:buttons -->
+	</div>
+	<!-- /wp:group -->
+</main>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer-minimal","area":"footer","tagName":"footer"} /-->

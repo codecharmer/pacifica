@@ -1,0 +1,56 @@
+{
+  "name": "pacifica/site",
+  "description": "Pacífica Panadería — repo-level PHP tooling (coding standards, compatibility, static analysis) for the block theme and pacifica-core plugin.",
+  "type": "project",
+  "license": "GPL-2.0-or-later",
+  "keywords": [
+    "wordpress",
+    "woocommerce",
+    "block-theme",
+    "coding-standards",
+    "phpstan"
+  ],
+  "authors": [
+    {
+      "name": "Pacífica Panadería — Agency Build",
+      "homepage": "https://pacifica.mx/"
+    }
+  ],
+  "require": {
+    "php": ">=8.3"
+  },
+  "require-dev": {
+    "squizlabs/php_codesniffer": "^3.10",
+    "wp-coding-standards/wpcs": "^3.1",
+    "phpcompatibility/phpcompatibility-wp": "^2.1",
+    "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+    "phpstan/phpstan": "^1.12",
+    "php-stubs/wordpress-stubs": "^6.8",
+    "php-stubs/woocommerce-stubs": "^9.0"
+  },
+  "scripts": {
+    "lint": "phpcs -q --standard=phpcs.xml.dist",
+    "lint:fix": "phpcbf --standard=phpcs.xml.dist",
+    "analyze": "phpstan analyse --configuration=phpstan.neon.dist --memory-limit=1G",
+    "check": [
+      "@lint",
+      "@analyze"
+    ]
+  },
+  "scripts-descriptions": {
+    "lint": "Run WordPress/WooCommerce coding-standards checks (phpcs).",
+    "lint:fix": "Auto-fix fixable coding-standards violations (phpcbf).",
+    "analyze": "Run PHPStan static analysis (level 6) against the plugin source.",
+    "check": "Run lint + analyze together (CI gate)."
+  },
+  "config": {
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    },
+    "platform": {
+      "php": "8.3.0"
+    },
+    "sort-packages": true,
+    "optimize-autoloader": true
+  }
+}

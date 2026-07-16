@@ -1,0 +1,876 @@
+/**
+ * Pacífica — front-end runtime styles.
+ *
+ * Covers: registered block styles (is-style-*), scroll-reveal base states,
+ * header sticky/scrolled behaviour, focus-visible rings, a small set of
+ * refined helpers, and prefers-reduced-motion guards.
+ *
+ * Rules: every colour, size, space, radius, duration and easing is a
+ * theme.json preset/custom CSS variable. No hardcoded hex values.
+ *
+ * @package Pacifica
+ */
+
+/* -------------------------------------------------------------------------
+ * 0. Base niceties
+ * ---------------------------------------------------------------------- */
+
+html {
+	scroll-behavior: smooth;
+}
+
+body {
+	-webkit-font-smoothing: antialiased;
+	text-rendering: optimizeLegibility;
+	text-underline-offset: 0.18em;
+}
+
+/* Constrain long-form measure for readability. */
+.pf-content > p,
+.pf-content > ul,
+.pf-content > ol,
+.pf-content > h2,
+.pf-content > h3,
+.pf-lead {
+	max-width: var(--wp--custom--measure);
+}
+
+:where(.pf-main) {
+	overflow-x: clip;
+}
+
+/* Selection colour. */
+::selection {
+	background-color: var(--wp--preset--color--trigo);
+	color: var(--wp--preset--color--crust);
+}
+
+/* -------------------------------------------------------------------------
+ * 1. Skip link
+ * ---------------------------------------------------------------------- */
+
+.pf-skip-link {
+	position: absolute;
+	left: var(--wp--preset--spacing--sm);
+	top: 0;
+	z-index: 999;
+	transform: translateY(-150%);
+	padding: 0.7rem 1.1rem;
+	border-radius: var(--wp--custom--radius--pill);
+	background-color: var(--wp--preset--color--crust);
+	color: var(--wp--preset--color--linen);
+	font-family: var(--wp--preset--font-family--body);
+	font-size: var(--wp--preset--font-size--sm);
+	font-weight: 600;
+	text-decoration: none;
+	box-shadow: var(--wp--preset--shadow--lift);
+	transition: transform var(--wp--custom--duration--fast) var(--wp--custom--easing--standard);
+}
+
+.pf-skip-link:focus {
+	transform: translateY(0.6rem);
+}
+
+/* -------------------------------------------------------------------------
+ * 2. Header — sticky / transparent / scrolled
+ * ---------------------------------------------------------------------- */
+
+header.wp-block-template-part {
+	position: sticky;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 100;
+}
+
+/* Homepage: float the (transparent) header over the hero. */
+.is-front-page header.wp-block-template-part {
+	position: fixed;
+	left: 0;
+	right: 0;
+}
+
+.pf-header {
+	background-color: var(--wp--preset--color--masa);
+	border-bottom: 1px solid transparent;
+	transition:
+		background-color var(--wp--custom--duration--base) var(--wp--custom--easing--standard),
+		box-shadow var(--wp--custom--duration--base) var(--wp--custom--easing--standard),
+		border-color var(--wp--custom--duration--base) var(--wp--custom--easing--standard),
+		padding var(--wp--custom--duration--base) var(--wp--custom--easing--standard);
+}
+
+.pf-header.is-scrolled {
+	box-shadow: var(--wp--preset--shadow--soft);
+	border-bottom-color: color-mix(in srgb, var(--wp--preset--color--crust) 10%, transparent);
+	padding-top: var(--wp--preset--spacing--xxxs);
+	padding-bottom: var(--wp--preset--spacing--xxxs);
+}
+
+.pf-header__bar {
+	gap: var(--wp--preset--spacing--sm);
+}
+
+.pf-header .wp-block-site-title a {
+	text-decoration: none;
+	color: var(--wp--preset--color--crust);
+}
+
+/* Nav links. */
+.pf-header .pf-nav {
+	font-family: var(--wp--preset--font-family--body);
+	font-weight: 500;
+}
+
+.pf-header .pf-nav a {
+	color: var(--wp--preset--color--crust-soft);
+	text-decoration: none;
+	position: relative;
+	padding-bottom: 2px;
+}
+
+.pf-header .pf-nav a::after {
+	content: "";
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: -2px;
+	height: 1px;
+	background-color: currentColor;
+	transform: scaleX(0);
+	transform-origin: left center;
+	transition: transform var(--wp--custom--duration--base) var(--wp--custom--easing--standard);
+}
+
+.pf-header .pf-nav a:hover,
+.pf-header .pf-nav a:focus-visible {
+	color: var(--wp--preset--color--crust);
+}
+
+.pf-header .pf-nav a:hover::after,
+.pf-header .pf-nav a[aria-current]::after {
+	transform: scaleX(1);
+}
+
+/* CTA "Ordenar" stays compact in the bar. */
+.pf-header__cta .wp-block-button__link {
+	padding-top: 0.6rem;
+	padding-bottom: 0.6rem;
+	padding-left: 1.2rem;
+	padding-right: 1.2rem;
+}
+
+/* Transparent variant (homepage hero) — until scrolled. */
+.pf-header--transparent {
+	background-color: transparent;
+}
+
+.pf-header--transparent:not(.is-scrolled) .wp-block-site-title a,
+.pf-header--transparent:not(.is-scrolled) .pf-nav a {
+	color: var(--wp--preset--color--linen);
+}
+
+.pf-header--transparent:not(.is-scrolled) .pf-header__cta .wp-block-button__link {
+	background-color: var(--wp--preset--color--linen);
+	color: var(--wp--preset--color--crust);
+}
+
+.pf-header--transparent.is-scrolled {
+	background-color: var(--wp--preset--color--masa);
+}
+
+/* -------------------------------------------------------------------------
+ * 3. Block style — core/button
+ * ---------------------------------------------------------------------- */
+
+/* Ghost / Contorno — outlined pill. */
+.wp-block-button.is-style-ghost .wp-block-button__link {
+	background-color: transparent;
+	color: var(--wp--preset--color--clay-deep);
+	box-shadow: inset 0 0 0 1.5px currentColor;
+}
+
+.wp-block-button.is-style-ghost .wp-block-button__link:hover,
+.wp-block-button.is-style-ghost .wp-block-button__link:focus-visible {
+	background-color: var(--wp--preset--color--clay);
+	color: var(--wp--preset--color--linen);
+	box-shadow: inset 0 0 0 1.5px var(--wp--preset--color--clay);
+}
+
+/* Ink / Tinta — dark solid. */
+.wp-block-button.is-style-ink .wp-block-button__link {
+	background-color: var(--wp--preset--color--crust);
+	color: var(--wp--preset--color--masa);
+}
+
+.wp-block-button.is-style-ink .wp-block-button__link:hover,
+.wp-block-button.is-style-ink .wp-block-button__link:focus-visible {
+	background-color: var(--wp--preset--color--ink);
+	color: var(--wp--preset--color--linen);
+}
+
+/* Link underline — a text link that reads as a button. */
+.wp-block-button.is-style-link-underline .wp-block-button__link {
+	background-color: transparent;
+	color: var(--wp--preset--color--clay-deep);
+	padding: 0.2rem 0;
+	border-radius: 0;
+	font-weight: 600;
+	text-decoration: underline;
+	text-decoration-thickness: 1px;
+	text-underline-offset: 0.25em;
+}
+
+.wp-block-button.is-style-link-underline .wp-block-button__link:hover,
+.wp-block-button.is-style-link-underline .wp-block-button__link:focus-visible {
+	color: var(--wp--preset--color--crust);
+	text-decoration-thickness: 2px;
+}
+
+/* -------------------------------------------------------------------------
+ * 4. Block style — core/image
+ * ---------------------------------------------------------------------- */
+
+/* Framed — soft radius + hairline + lift. */
+.wp-block-image.is-style-framed img {
+	border-radius: var(--wp--custom--radius--md);
+	box-shadow: var(--wp--preset--shadow--soft), var(--wp--preset--shadow--inset);
+}
+
+/* Arch — top arch, editorial. */
+.wp-block-image.is-style-arch img {
+	border-radius: 50% 50% var(--wp--custom--radius--md) var(--wp--custom--radius--md) / 42% 42% var(--wp--custom--radius--md) var(--wp--custom--radius--md);
+	box-shadow: var(--wp--preset--shadow--soft);
+}
+
+/* Duotone clay — warm monochrome wash via blend. */
+.wp-block-image.is-style-duotone-clay {
+	position: relative;
+	isolation: isolate;
+}
+
+.wp-block-image.is-style-duotone-clay img {
+	border-radius: var(--wp--custom--radius--md);
+	filter: grayscale(1) contrast(1.05);
+}
+
+.wp-block-image.is-style-duotone-clay::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	border-radius: var(--wp--custom--radius--md);
+	background: var(--wp--preset--gradient--oven);
+	mix-blend-mode: color;
+	opacity: 0.72;
+	pointer-events: none;
+}
+
+/* -------------------------------------------------------------------------
+ * 5. Block style — core/group
+ * ---------------------------------------------------------------------- */
+
+/* Card — elevated surface. */
+.wp-block-group.is-style-card {
+	background-color: var(--wp--preset--color--linen);
+	border-radius: var(--wp--custom--radius--lg);
+	padding: var(--wp--preset--spacing--md);
+	box-shadow: var(--wp--preset--shadow--soft);
+	transition:
+		transform var(--wp--custom--duration--base) var(--wp--custom--easing--standard),
+		box-shadow var(--wp--custom--duration--base) var(--wp--custom--easing--standard);
+}
+
+.wp-block-group.is-style-card:hover {
+	transform: translateY(-4px);
+	box-shadow: var(--wp--preset--shadow--lift);
+}
+
+/* Paper — flat secondary surface with inset hairline. */
+.wp-block-group.is-style-paper {
+	background-color: var(--wp--preset--color--masa-deep);
+	border-radius: var(--wp--custom--radius--md);
+	padding: var(--wp--preset--spacing--md);
+	box-shadow: var(--wp--preset--shadow--inset);
+}
+
+/* Hairline — divider rule beneath a block, no fill. */
+.wp-block-group.is-style-hairline {
+	border-bottom: 1px solid color-mix(in srgb, var(--wp--preset--color--crust) 12%, transparent);
+}
+
+/* -------------------------------------------------------------------------
+ * 6. Block style — core/heading
+ * ---------------------------------------------------------------------- */
+
+/* Eyebrow — small caps, letter-spaced label. */
+.is-style-eyebrow {
+	font-family: var(--wp--preset--font-family--body) !important;
+	font-weight: 600 !important;
+	font-size: var(--wp--preset--font-size--sm) !important;
+	line-height: 1.2 !important;
+	letter-spacing: 0.14em !important;
+	text-transform: uppercase;
+	color: var(--wp--preset--color--clay-deep);
+	margin-bottom: var(--wp--preset--spacing--xxs);
+}
+
+/* Script accent — Fraunces italic display flourish. */
+.is-style-script-accent {
+	font-family: var(--wp--preset--font-family--display) !important;
+	font-style: italic !important;
+	font-weight: 400 !important;
+	letter-spacing: -0.01em !important;
+}
+
+/* -------------------------------------------------------------------------
+ * 7. Block style — core/list
+ * ---------------------------------------------------------------------- */
+
+.wp-block-list.is-style-wheat-marker,
+.wp-block-list.is-style-checkmarks {
+	list-style: none;
+	padding-left: 0;
+}
+
+.wp-block-list.is-style-wheat-marker li,
+.wp-block-list.is-style-checkmarks li {
+	position: relative;
+	padding-left: 1.7em;
+	margin-bottom: var(--wp--preset--spacing--xxs);
+}
+
+/* Wheat marker — a small ear/grain glyph. */
+.wp-block-list.is-style-wheat-marker li::before {
+	content: "❦";
+	position: absolute;
+	left: 0;
+	top: 0;
+	color: var(--wp--preset--color--trigo);
+	font-size: 1em;
+	line-height: 1.4;
+}
+
+/* Checkmarks. */
+.wp-block-list.is-style-checkmarks li::before {
+	content: "";
+	position: absolute;
+	left: 0.05em;
+	top: 0.35em;
+	width: 0.55em;
+	height: 0.3em;
+	border-left: 2px solid var(--wp--preset--color--olivo);
+	border-bottom: 2px solid var(--wp--preset--color--olivo);
+	transform: rotate(-45deg);
+}
+
+/* -------------------------------------------------------------------------
+ * 8. Block style — core/separator (wheat) + default refinement
+ * ---------------------------------------------------------------------- */
+
+.wp-block-separator.is-style-wheat {
+	border: 0;
+	max-width: 8rem;
+	height: auto;
+	opacity: 1;
+	text-align: center;
+	overflow: visible;
+}
+
+.wp-block-separator.is-style-wheat::before {
+	content: "✺";
+	display: block;
+	color: var(--wp--preset--color--trigo);
+	font-size: var(--wp--preset--font-size--md);
+	line-height: 1;
+}
+
+/* -------------------------------------------------------------------------
+ * 9. Block style — core/quote (testimonial)
+ * ---------------------------------------------------------------------- */
+
+.wp-block-quote.is-style-testimonial {
+	border: 0;
+	padding: var(--wp--preset--spacing--lg);
+	margin: 0;
+	background-color: var(--wp--preset--color--linen);
+	border-radius: var(--wp--custom--radius--lg);
+	box-shadow: var(--wp--preset--shadow--soft);
+	position: relative;
+}
+
+.wp-block-quote.is-style-testimonial::before {
+	content: "\201C";
+	position: absolute;
+	top: 0.1em;
+	left: 0.3em;
+	font-family: var(--wp--preset--font-family--display);
+	font-size: var(--wp--preset--font-size--xxxl);
+	line-height: 1;
+	color: var(--wp--preset--color--trigo);
+	opacity: 0.55;
+}
+
+.wp-block-quote.is-style-testimonial p {
+	font-family: var(--wp--preset--font-family--display);
+	font-size: var(--wp--preset--font-size--lg);
+	font-style: italic;
+	line-height: 1.3;
+	color: var(--wp--preset--color--crust);
+}
+
+.wp-block-quote.is-style-testimonial cite {
+	display: block;
+	margin-top: var(--wp--preset--spacing--sm);
+	font-family: var(--wp--preset--font-family--body);
+	font-style: normal;
+	font-size: var(--wp--preset--font-size--sm);
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: var(--wp--preset--color--stone);
+}
+
+/* -------------------------------------------------------------------------
+ * 10. Scroll reveal — base states (JS adds .is-inview)
+ * ---------------------------------------------------------------------- */
+
+.pf-reveal {
+	opacity: 0;
+	transform: translateY(1.4rem);
+	transition:
+		opacity var(--wp--custom--duration--slow) var(--wp--custom--easing--standard),
+		transform var(--wp--custom--duration--slow) var(--wp--custom--easing--standard);
+	will-change: opacity, transform;
+}
+
+.pf-reveal.is-inview {
+	opacity: 1;
+	transform: none;
+}
+
+/* Stagger children when a container itself is the reveal target. */
+.pf-reveal-group.is-inview > * {
+	animation: pf-fade-up var(--wp--custom--duration--slow) var(--wp--custom--easing--standard) both;
+}
+
+.pf-reveal-group.is-inview > *:nth-child(2) { animation-delay: 80ms; }
+.pf-reveal-group.is-inview > *:nth-child(3) { animation-delay: 160ms; }
+.pf-reveal-group.is-inview > *:nth-child(4) { animation-delay: 240ms; }
+
+@keyframes pf-fade-up {
+	from { opacity: 0; transform: translateY(1.1rem); }
+	to { opacity: 1; transform: none; }
+}
+
+/* -------------------------------------------------------------------------
+ * 11. Focus-visible rings
+ * ---------------------------------------------------------------------- */
+
+:where(a, button, input, select, textarea, summary, .wp-block-button__link, .wp-block-navigation-item__content):focus-visible {
+	outline: 2px solid var(--wp--preset--color--clay-deep);
+	outline-offset: 3px;
+	border-radius: var(--wp--custom--radius--sm);
+}
+
+.pf-header--transparent:not(.is-scrolled) a:focus-visible {
+	outline-color: var(--wp--preset--color--linen);
+}
+
+/* -------------------------------------------------------------------------
+ * 12. Refined helpers
+ * ---------------------------------------------------------------------- */
+
+.pf-lead {
+	line-height: 1.5;
+}
+
+/* Search input pill. */
+.pf-search .wp-block-search__input {
+	border: 1px solid color-mix(in srgb, var(--wp--preset--color--crust) 15%, transparent);
+	border-radius: var(--wp--custom--radius--pill);
+	background-color: var(--wp--preset--color--linen);
+	padding: 0.7rem 1.1rem;
+}
+
+.pf-search .wp-block-search__button {
+	border-radius: var(--wp--custom--radius--pill);
+}
+
+/* Post navigation pair. */
+.pf-entry-footer .post-navigation-link {
+	display: inline-block;
+	margin-right: var(--wp--preset--spacing--md);
+}
+
+/* Footer polish. */
+.pf-footer a {
+	color: var(--wp--preset--color--masa);
+	text-decoration: none;
+	border-bottom: 1px solid color-mix(in srgb, var(--wp--preset--color--masa) 30%, transparent);
+	transition: color var(--wp--custom--duration--fast) var(--wp--custom--easing--standard),
+		border-color var(--wp--custom--duration--fast) var(--wp--custom--easing--standard);
+}
+
+.pf-footer a:hover,
+.pf-footer a:focus-visible {
+	color: var(--wp--preset--color--trigo);
+	border-bottom-color: var(--wp--preset--color--trigo);
+}
+
+.pf-footer__nav a,
+.pf-footer__legal-nav a {
+	border-bottom: 0;
+}
+
+.pf-footer .is-style-eyebrow {
+	color: var(--wp--preset--color--trigo);
+}
+
+/* Card grids get an even rhythm. */
+.pf-posts__grid > .wp-block-group.is-style-card {
+	height: 100%;
+}
+
+/* Product card polish. */
+.pf-product-card {
+	text-align: center;
+	height: 100%;
+}
+
+.pf-product-card .wp-block-post-title,
+.pf-product-card .wc-block-components-product-price {
+	margin-top: var(--wp--preset--spacing--xxs);
+}
+
+/* -------------------------------------------------------------------------
+ * 13. Reduced motion
+ * ---------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+	html {
+		scroll-behavior: auto;
+	}
+
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.001ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.001ms !important;
+		scroll-behavior: auto !important;
+	}
+
+	.pf-reveal {
+		opacity: 1;
+		transform: none;
+	}
+
+	.wp-block-group.is-style-card:hover {
+		transform: none;
+	}
+}
+
+/* =====================================================================
+   Boutique Panadería — homepage comp components (2026 redesign)
+   Palette tokens: clay = rosa, crust = ink, masa = porcelain, linen = paper
+   ===================================================================== */
+
+.pf-eyebrow {
+	font-family: var(--wp--preset--font-family--body);
+	font-size: var(--wp--preset--font-size--sm);
+	letter-spacing: 0.28em;
+	text-transform: uppercase;
+	font-weight: 600;
+	margin: 0;
+}
+
+/* ---- Hero (core/cover + hero-scrim gradient overlay) ---- */
+.pf-hero.wp-block-cover {
+	min-height: 92svh;
+	padding-top: 6rem;
+	align-items: flex-end;
+}
+.pf-hero .wp-block-cover__inner-container {
+	width: 100%;
+	max-width: var(--wp--style--global--wide-size, 1200px);
+	margin-inline: auto;
+	padding-inline: clamp(1.25rem, 4vw, 3.5rem);
+	padding-bottom: clamp(2.5rem, 6vw, 5rem);
+	color: #fff;
+}
+.pf-hero .pf-eyebrow { color: var(--wp--preset--color--ember); }
+.pf-hero h1 {
+	color: #fff;
+	max-width: 14ch;
+	margin: 0.4em 0 0.5em;
+	text-shadow: 0 1px 24px rgba(20, 15, 12, 0.35);
+}
+.pf-hero .pf-lede {
+	font-family: var(--wp--preset--font-family--display);
+	font-style: italic;
+	font-size: var(--wp--preset--font-size--lg);
+	line-height: 1.3;
+	max-width: 44ch;
+	color: rgba(255, 255, 255, 0.95);
+	text-shadow: 0 1px 24px rgba(20, 15, 12, 0.35);
+}
+.pf-hero .wp-block-buttons { margin-top: 2rem; }
+
+/* ---- Signature band (rose-drenched) ---- */
+.pf-signature { text-align: center; }
+.pf-signature .pf-eyebrow {
+	color: var(--wp--preset--color--clay-deep);
+	margin-bottom: 1.4rem;
+}
+.pf-signature h2 {
+	font-size: var(--wp--preset--font-size--xxl);
+	max-width: 20ch;
+	margin-inline: auto;
+	line-height: 1.14;
+}
+.pf-signature h2 em { font-style: italic; }
+
+/* ---- Obrador editorial + vitrina price list ---- */
+.pf-obrador .pf-tag {
+	display: inline-block;
+	background: var(--wp--preset--color--linen);
+	color: var(--wp--preset--color--crust);
+	font-size: var(--wp--preset--font-size--sm);
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	font-weight: 600;
+	padding: 0.5em 0.9em;
+	margin-top: -3rem;
+	position: relative;
+	z-index: 2;
+}
+.pf-vitrina { border-top: 1px solid rgba(34, 27, 22, 0.14); margin-top: 0.5rem; }
+.pf-vitrina .pf-row {
+	display: flex;
+	justify-content: space-between;
+	align-items: baseline;
+	gap: 1rem;
+	padding: 0.9rem 0;
+	border-bottom: 1px solid rgba(34, 27, 22, 0.14);
+}
+.pf-vitrina .pf-name {
+	font-family: var(--wp--preset--font-family--display);
+	font-size: var(--wp--preset--font-size--md);
+	color: var(--wp--preset--color--crust);
+	line-height: 1.2;
+}
+.pf-vitrina .pf-name span {
+	display: block;
+	font-family: var(--wp--preset--font-family--body);
+	font-size: var(--wp--preset--font-size--sm);
+	color: var(--wp--preset--color--crust-soft);
+	margin-top: 0.15rem;
+}
+.pf-vitrina .pf-price {
+	font-variant-numeric: tabular-nums;
+	font-weight: 600;
+	white-space: nowrap;
+	color: var(--wp--preset--color--crust);
+}
+.pf-vitrina .pf-price small { color: var(--wp--preset--color--crust-soft); font-weight: 400; }
+
+/* ---- Craft (dark) ---- */
+.pf-craft { color: var(--wp--preset--color--masa); }
+.pf-craft .pf-eyebrow { color: var(--wp--preset--color--ember); }
+.pf-craft h2 { color: #fff; }
+.pf-craft-stats {
+	display: flex;
+	gap: 2rem;
+	flex-wrap: wrap;
+	margin-top: 2.4rem;
+}
+.pf-craft-stats > * {
+	border-top: 1px solid rgba(255, 255, 255, 0.22);
+	padding-top: 0.7rem;
+	min-width: 80px;
+}
+.pf-craft-stats b {
+	font-family: var(--wp--preset--font-family--display);
+	font-size: var(--wp--preset--font-size--lg);
+	font-weight: 400;
+	display: block;
+	color: #fff;
+}
+.pf-craft-stats span {
+	font-size: var(--wp--preset--font-size--sm);
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	color: var(--wp--preset--color--ember);
+}
+
+/* ---- Visit card over cover ---- */
+.pf-visit-card {
+	background: var(--wp--preset--color--linen);
+	color: var(--wp--preset--color--crust);
+	max-width: 420px;
+	padding: clamp(2rem, 4vw, 3rem);
+}
+.pf-visit-card .pf-eyebrow { color: var(--wp--preset--color--clay-deep); margin-bottom: 1rem; }
+.pf-visit-dl {
+	display: grid;
+	grid-template-columns: auto 1fr;
+	gap: 0.5rem 1.2rem;
+	margin: 0 0 1.8rem;
+}
+.pf-visit-dl dt {
+	font-size: var(--wp--preset--font-size--sm);
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+	color: var(--wp--preset--color--crust-soft);
+	font-weight: 600;
+}
+.pf-visit-dl dd { margin: 0; }
+
+/* Hide WooCommerce's auto-injected customer-account icon in the site header
+   (not part of the boutique nav design; account remains reachable at /my-account). */
+.pf-header .wp-block-woocommerce-customer-account { display: none; }
+
+/* Craft section: image fills the full left half, flush and full-height. */
+.pf-craft .wp-block-columns { align-items: stretch; min-height: 540px; }
+.pf-craft-media { align-self: stretch; }
+.pf-craft-media .wp-block-image,
+.pf-craft-media figure { height: 100%; margin: 0; }
+.pf-craft-media img { height: 100%; width: 100%; object-fit: cover; display: block; }
+@media (max-width: 781px) {
+	.pf-craft .wp-block-columns { min-height: 0; }
+	.pf-craft-media img { height: auto; aspect-ratio: 16/10; }
+}
+
+/* Visit: center the content in a 1200px wrap so the card floats (comp parity),
+   not flush to the viewport edge. Card stays left-aligned within the wrap. */
+.pf-visit .wp-block-cover__inner-container {
+	max-width: var(--wp--style--global--wide-size, 1200px);
+	margin-inline: auto;
+	width: 100%;
+	padding-inline: clamp(1.25rem, 4vw, 3.5rem);
+}
+
+/* ---------------------------------------------------------------------------
+   Comp parity: header nav + hero buttons
+   -------------------------------------------------------------------------- */
+
+/* Nav links: uppercase, tracked, small — as in the approved comp. */
+.pf-header .pf-nav a {
+	text-transform: uppercase;
+	letter-spacing: 0.14em;
+	font-size: var(--wp--preset--font-size--sm);
+	font-weight: 600;
+}
+
+/* "Ordenar en línea" stays rose on the transparent header (was white). */
+.pf-header--transparent:not(.is-scrolled) .pf-header__cta .wp-block-button__link {
+	background-color: var(--wp--preset--color--clay);
+	color: var(--wp--preset--color--crust);
+}
+
+.pf-header--transparent:not(.is-scrolled) .pf-header__cta .wp-block-button__link:hover,
+.pf-header--transparent:not(.is-scrolled) .pf-header__cta .wp-block-button__link:focus-visible {
+	background-color: var(--wp--preset--color--linen);
+	color: var(--wp--preset--color--crust);
+}
+
+/* Ghost button sits on the dark hero photo: white outline, not dark rose. */
+.pf-hero .wp-block-button.is-style-ghost .wp-block-button__link {
+	color: #fff;
+	box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.38);
+}
+
+.pf-hero .wp-block-button.is-style-ghost .wp-block-button__link:hover,
+.pf-hero .wp-block-button.is-style-ghost .wp-block-button__link:focus-visible {
+	background-color: #fff;
+	color: var(--wp--preset--color--crust);
+	box-shadow: inset 0 0 0 1px #fff;
+}
+
+/* ---------------------------------------------------------------------------
+   Comp parity round 2: kill inter-section gaps, header geometry
+   -------------------------------------------------------------------------- */
+
+/* Full-bleed sections butt together on the front page — no blockGap bars. */
+.home .wp-site-blocks > * { margin-block-start: 0; }
+.home .pf-main > * { margin-block-start: 0; margin-block-end: 0; }
+
+/* Comp header: overlays the hero and scrolls away with the page (not sticky,
+   no solid state). */
+.home header.wp-block-template-part { position: absolute; }
+.home .pf-header--transparent.is-scrolled {
+	background-color: transparent;
+	box-shadow: none;
+	border-bottom-color: transparent;
+	padding-top: inherit;
+	padding-bottom: inherit;
+}
+.home .pf-header--transparent.is-scrolled .wp-block-site-title a,
+.home .pf-header--transparent.is-scrolled .pf-nav a { color: var(--wp--preset--color--linen); }
+.home .pf-header--transparent.is-scrolled .pf-header__cta .wp-block-button__link {
+	background-color: var(--wp--preset--color--clay);
+	color: var(--wp--preset--color--crust);
+}
+
+/* Header scale to match the comp: larger wordmark, roomier bar, wider nav gap. */
+.pf-header .wp-block-site-title { font-size: var(--wp--preset--font-size--lg); }
+.pf-header--transparent {
+	padding-top: clamp(1.1rem, 2.4vw, 1.8rem);
+	padding-bottom: clamp(1.1rem, 2.4vw, 1.8rem);
+}
+.pf-header .pf-nav { gap: 2rem; }
+
+/* Obrador vitrina names at display scale, as in the comp. */
+.pf-vitrina .pf-name { font-size: var(--wp--preset--font-size--lg); }
+
+/* Craft section is edge-to-edge: no inherited group padding around the photo. */
+.pf-craft.pf-craft { padding: 0; }
+
+/* Visit card floats centered over the vitrina photo, as in the comp. */
+.pf-visit .pf-visit-card { margin-inline: auto; }
+
+/* ---------------------------------------------------------------------------
+   Footer — comp parity
+   -------------------------------------------------------------------------- */
+
+.pf-footer__grid {
+	border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+	padding-bottom: 3rem;
+}
+
+.pf-footer__logo img {
+	width: 74px;
+	height: 74px;
+	border-radius: 50%;
+	object-fit: cover;
+}
+
+.pf-footer__logo { margin-bottom: 1.2rem; }
+
+.pf-footer .wp-block-site-title,
+.pf-footer .wp-block-site-title a {
+	color: #fff;
+	text-decoration: none;
+	border: none;
+}
+
+.pf-footer__tag {
+	font-family: var(--wp--preset--font-family--display);
+	font-style: italic;
+	font-size: var(--wp--preset--font-size--lg);
+	line-height: 1.3;
+	color: rgba(242, 236, 230, 0.66);
+	max-width: 34ch;
+	margin-top: 0.6rem;
+}
+
+.pf-footer .pf-footer__nav a {
+	color: rgba(242, 236, 230, 0.85);
+	text-decoration: none;
+}
+
+.pf-footer .pf-footer__nav a:hover,
+.pf-footer .pf-footer__nav a:focus-visible {
+	color: #fff;
+}
+
+.pf-footer__base p { color: rgba(242, 236, 230, 0.5); }

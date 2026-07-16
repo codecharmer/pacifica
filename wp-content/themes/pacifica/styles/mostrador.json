@@ -1,0 +1,68 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/theme.json",
+	"version": 3,
+	"title": "Mostrador",
+	"description": "Variación clara con predominio de lino: fondo luminoso, texto crust y acentos de arcilla. Ligera y aireada para páginas de tienda.",
+	"styles": {
+		"color": {
+			"background": "var:preset|color|linen",
+			"text": "var:preset|color|crust-soft"
+		},
+		"elements": {
+			"heading": {
+				"color": {
+					"text": "var:preset|color|crust"
+				}
+			},
+			"link": {
+				"color": {
+					"text": "var:preset|color|clay-deep"
+				},
+				":hover": {
+					"color": {
+						"text": "var:preset|color|crust"
+					}
+				},
+				":focus": {
+					"color": {
+						"text": "var:preset|color|crust"
+					}
+				}
+			},
+			"button": {
+				"color": {
+					"background": "var:preset|color|clay",
+					"text": "var:preset|color|linen"
+				},
+				":hover": {
+					"color": {
+						"background": "var:preset|color|clay-deep",
+						"text": "var:preset|color|linen"
+					}
+				},
+				":focus": {
+					"color": {
+						"background": "var:preset|color|clay-deep",
+						"text": "var:preset|color|linen"
+					}
+				}
+			},
+			"caption": {
+				"color": {
+					"text": "var:preset|color|stone"
+				}
+			}
+		},
+		"blocks": {
+			"core/quote": {
+				"border": {
+					"left": {
+						"color": "var:preset|color|clay",
+						"width": "3px",
+						"style": "solid"
+					}
+				}
+			}
+		}
+	}
+}

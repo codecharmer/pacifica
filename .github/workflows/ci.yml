@@ -1,0 +1,79 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  php:
+    name: PHP ${{ matrix.php }} — standards & static analysis
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php: [ '8.3' ]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: none
+          tools: composer:v2
+
+      - name: Cache Composer dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/composer
+          key: composer-${{ matrix.php }}-${{ hashFiles('composer.json') }}
+          restore-keys: composer-${{ matrix.php }}-
+
+      - name: Install Composer dependencies (root tooling)
+        run: composer install --prefer-dist --no-progress --no-interaction
+
+      - name: Install plugin Composer dependencies (generates autoload)
+        working-directory: wp-content/plugins/pacifica-core
+        run: composer install --prefer-dist --no-progress --no-interaction
+
+      - name: PHP CodeSniffer (WordPress standards)
+        run: composer run lint
+
+      - name: PHPStan (static analysis, level 6)
+        # Non-blocking: annotate findings without failing the build yet.
+        run: composer run analyze || true
+
+  js:
+    name: JS/CSS — lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node (LTS)
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: npm
+
+      - name: Install npm dependencies (workspaces)
+        run: npm ci || npm install
+
+      - name: Lint JS (@wordpress/scripts)
+        run: npm run lint:js
+
+      - name: Lint CSS/SCSS (stylelint)
+        run: npm run lint:css
+
+      - name: Build assets (verify the pipeline compiles)
+        run: npm run build
