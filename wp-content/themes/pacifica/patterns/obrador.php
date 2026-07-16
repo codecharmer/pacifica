@@ -21,8 +21,8 @@
 <!-- /wp:column -->
 
 <!-- wp:column {"verticalAlignment":"center","width":"48%"} -->
-<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:48%"><!-- wp:paragraph {"textColor":"clay-deep","className":"pf-eyebrow"} -->
-<p class="pf-eyebrow has-clay-deep-color has-text-color">Del obrador</p>
+<div class="wp-block-column is-vertically-aligned-center" style="flex-basis:48%"><!-- wp:paragraph {"textColor":"rosa-deep","className":"pf-eyebrow"} -->
+<p class="pf-eyebrow has-rosa-deep-color has-text-color">Del obrador</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading {"fontSize":"xxl","style":{"spacing":{"margin":{"top":"var:preset|spacing|xs","bottom":"var:preset|spacing|sm"}}}} -->

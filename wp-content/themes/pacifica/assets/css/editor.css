@@ -26,7 +26,7 @@
 /* In the canvas the transparent header sits on a light background, so keep its
  * text legible instead of the over-hero linen treatment. */
 .editor-styles-wrapper .pf-header--transparent {
-	background-color: var(--wp--preset--color--masa);
+	background-color: var(--wp--preset--color--porcelain);
 }
 
 .editor-styles-wrapper .pf-header--transparent .wp-block-site-title a,
@@ -35,7 +35,7 @@
 }
 
 .editor-styles-wrapper .pf-header--transparent .pf-header__cta .wp-block-button__link {
-	background-color: var(--wp--preset--color--clay);
+	background-color: var(--wp--preset--color--rosa);
 	color: var(--wp--preset--color--linen);
 }
 

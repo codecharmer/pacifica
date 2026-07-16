@@ -8,8 +8,8 @@
  * Viewport Width: 1400
  */
 ?>
-<!-- wp:group {"align":"full","backgroundColor":"crust","textColor":"masa","className":"pf-craft","style":{"spacing":{"padding":{"top":"0","bottom":"0"},"blockGap":"0"}},"layout":{"type":"constrained","contentSize":"100%"}} -->
-<div class="wp-block-group alignfull pf-craft has-masa-color has-crust-background-color has-text-color has-background"><!-- wp:columns {"style":{"spacing":{"blockGap":{"left":"0"}}}} -->
+<!-- wp:group {"align":"full","backgroundColor":"crust","textColor":"porcelain","className":"pf-craft","style":{"spacing":{"padding":{"top":"0","bottom":"0"},"blockGap":"0"}},"layout":{"type":"constrained","contentSize":"100%"}} -->
+<div class="wp-block-group alignfull pf-craft has-porcelain-color has-crust-background-color has-text-color has-background"><!-- wp:columns {"style":{"spacing":{"blockGap":{"left":"0"}}}} -->
 <div class="wp-block-columns"><!-- wp:column {"width":"50%","className":"pf-craft-media"} -->
 <div class="wp-block-column pf-craft-media" style="flex-basis:50%"><!-- wp:image {"scale":"cover","sizeSlug":"large"} -->
 <figure class="wp-block-image size-large"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/craft-miga.jpg" alt="Corte de pain au chocolat mostrando la miga alveolada del laminado"/></figure>

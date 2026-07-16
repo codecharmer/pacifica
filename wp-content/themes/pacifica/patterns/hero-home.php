@@ -24,11 +24,11 @@
 
 <!-- wp:buttons -->
 <div class="wp-block-buttons"><!-- wp:button -->
-<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="/carta">Ver la carta</a></div>
+<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="/menu">Ver la carta</a></div>
 <!-- /wp:button -->
 
 <!-- wp:button {"className":"is-style-ghost"} -->
-<div class="wp-block-button is-style-ghost"><a class="wp-block-button__link wp-element-button" href="/recoleccion">Reservar recolección</a></div>
+<div class="wp-block-button is-style-ghost"><a class="wp-block-button__link wp-element-button" href="/como-recoger">Reservar recolección</a></div>
 <!-- /wp:button --></div>
 <!-- /wp:buttons --></div>
 <!-- /wp:group --></div></div>

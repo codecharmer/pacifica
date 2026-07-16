@@ -4,12 +4,19 @@
 <main id="pf-main" class="wp-block-group pf-main pf-checkout">
 	<!-- wp:group {"className":"pf-checkout-wrap","layout":{"type":"constrained","wideSize":"1200px"},"style":{"spacing":{"padding":{"top":"var:preset|spacing|lg","bottom":"var:preset|spacing|xxl"},"blockGap":"var:preset|spacing|md"}}} -->
 	<div class="wp-block-group pf-checkout-wrap" style="padding-top:var(--wp--preset--spacing--lg);padding-bottom:var(--wp--preset--spacing--xxl)">
-		<!-- wp:heading {"level":1,"fontSize":"xxl"} -->
-		<h1 class="wp-block-heading has-xxl-font-size">Finalizar pedido</h1>
-		<!-- /wp:heading -->
-		<!-- wp:paragraph {"className":"pf-lead","fontSize":"base","textColor":"crust-soft"} -->
-		<p class="pf-lead has-crust-soft-color has-text-color has-base-font-size">Reserva y recoge en el obrador. Elige fecha y horario de recolección antes de pagar.</p>
-		<!-- /wp:paragraph -->
+		<!-- wp:group {"className":"pf-head","style":{"spacing":{"blockGap":"0"}},"layout":{"type":"default"}} -->
+		<div class="wp-block-group pf-head">
+			<!-- wp:paragraph {"className":"pf-eyebrow"} -->
+			<p class="pf-eyebrow">Último paso</p>
+			<!-- /wp:paragraph -->
+			<!-- wp:heading {"level":1,"fontSize":"xxl"} -->
+			<h1 class="wp-block-heading has-xxl-font-size">Finalizar pedido</h1>
+			<!-- /wp:heading -->
+			<!-- wp:paragraph {"className":"pf-lead","fontSize":"base","textColor":"crust-soft","style":{"spacing":{"margin":{"top":"var:preset|spacing|sm"}}}} -->
+			<p class="pf-lead has-crust-soft-color has-text-color has-base-font-size" style="margin-top:var(--wp--preset--spacing--sm)">Reserva y recoge en el obrador. Elige fecha y horario de recolección antes de pagar.</p>
+			<!-- /wp:paragraph -->
+		</div>
+		<!-- /wp:group -->
 
 		<!-- wp:woocommerce/checkout -->
 		<div class="wp-block-woocommerce-checkout alignwide wc-block-checkout is-loading">

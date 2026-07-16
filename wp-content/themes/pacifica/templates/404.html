@@ -2,17 +2,21 @@
 
 <!-- wp:group {"tagName":"main","metadata":{"name":"Contenido principal"},"anchor":"pf-main","className":"pf-main","layout":{"type":"default"}} -->
 <main id="pf-main" class="wp-block-group pf-main">
-	<!-- wp:group {"className":"pf-404","layout":{"type":"constrained","contentSize":"640px"},"style":{"spacing":{"padding":{"top":"var:preset|spacing|xxxl","bottom":"var:preset|spacing|xxxl"},"blockGap":"var:preset|spacing|md"}}} -->
-	<div class="wp-block-group pf-404" style="padding-top:var(--wp--preset--spacing--xxxl);padding-bottom:var(--wp--preset--spacing--xxxl)">
-		<!-- wp:heading {"textAlign":"center","level":2,"className":"is-style-eyebrow","fontSize":"sm","textColor":"clay-deep"} -->
-		<h2 class="wp-block-heading has-text-align-center is-style-eyebrow has-clay-deep-color has-text-color has-sm-font-size">Error 404</h2>
-		<!-- /wp:heading -->
-		<!-- wp:heading {"textAlign":"center","level":1,"fontSize":"xxl"} -->
-		<h1 class="wp-block-heading has-text-align-center has-xxl-font-size">Esta página se horneó de más</h1>
-		<!-- /wp:heading -->
-		<!-- wp:paragraph {"align":"center","fontSize":"md","textColor":"crust-soft"} -->
-		<p class="has-text-align-center has-crust-soft-color has-text-color has-md-font-size">No encontramos lo que buscabas. Prueba con el menú o busca de nuevo.</p>
-		<!-- /wp:paragraph -->
+	<!-- wp:group {"className":"pf-band pf-404","layout":{"type":"constrained","contentSize":"640px"},"style":{"spacing":{"padding":{"top":"var:preset|spacing|xxxl","bottom":"var:preset|spacing|xxxl"},"blockGap":"var:preset|spacing|md"}}} -->
+	<div class="wp-block-group pf-band pf-404" style="padding-top:var(--wp--preset--spacing--xxxl);padding-bottom:var(--wp--preset--spacing--xxxl)">
+		<!-- wp:group {"className":"pf-head pf-head--center","style":{"spacing":{"blockGap":"0"}},"layout":{"type":"default"}} -->
+		<div class="wp-block-group pf-head pf-head--center">
+			<!-- wp:paragraph {"className":"pf-eyebrow"} -->
+			<p class="pf-eyebrow">Error 404</p>
+			<!-- /wp:paragraph -->
+			<!-- wp:heading {"textAlign":"center","level":1,"fontSize":"xxl"} -->
+			<h1 class="wp-block-heading has-text-align-center has-xxl-font-size">Esta página se horneó de más</h1>
+			<!-- /wp:heading -->
+			<!-- wp:paragraph {"align":"center","className":"pf-lede"} -->
+			<p class="pf-lede has-text-align-center">No encontramos lo que buscabas. Prueba con el menú o busca de nuevo.</p>
+			<!-- /wp:paragraph -->
+		</div>
+		<!-- /wp:group -->
 		<!-- wp:search {"label":"Buscar","showLabel":false,"placeholder":"Buscar en Pacífica…","buttonText":"Buscar","buttonPosition":"button-inside","className":"pf-search"} /-->
 		<!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"},"style":{"spacing":{"margin":{"top":"var:preset|spacing|sm"}}}} -->
 		<div class="wp-block-buttons">

@@ -4,9 +4,16 @@
 <main id="pf-main" class="wp-block-group pf-main pf-cart">
 	<!-- wp:group {"className":"pf-cart-wrap","layout":{"type":"constrained","wideSize":"1200px"},"style":{"spacing":{"padding":{"top":"var:preset|spacing|lg","bottom":"var:preset|spacing|xxl"},"blockGap":"var:preset|spacing|md"}}} -->
 	<div class="wp-block-group pf-cart-wrap" style="padding-top:var(--wp--preset--spacing--lg);padding-bottom:var(--wp--preset--spacing--xxl)">
-		<!-- wp:heading {"level":1,"fontSize":"xxl"} -->
-		<h1 class="wp-block-heading has-xxl-font-size">Tu carrito</h1>
-		<!-- /wp:heading -->
+		<!-- wp:group {"className":"pf-head","style":{"spacing":{"blockGap":"0"}},"layout":{"type":"default"}} -->
+		<div class="wp-block-group pf-head">
+			<!-- wp:paragraph {"className":"pf-eyebrow"} -->
+			<p class="pf-eyebrow">Reserva y recoge</p>
+			<!-- /wp:paragraph -->
+			<!-- wp:heading {"level":1,"fontSize":"xxl"} -->
+			<h1 class="wp-block-heading has-xxl-font-size">Tu carrito</h1>
+			<!-- /wp:heading -->
+		</div>
+		<!-- /wp:group -->
 
 		<!-- wp:woocommerce/cart -->
 		<div class="wp-block-woocommerce-cart alignwide is-loading">

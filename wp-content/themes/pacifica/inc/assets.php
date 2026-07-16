@@ -67,12 +67,16 @@ function pacifica_enqueue_editor_assets(): void {
 add_action( 'enqueue_block_assets', 'pacifica_enqueue_editor_assets' );
 
 /**
- * Preload the two variable fonts (when present) to avoid FOUT on the hero.
+ * Preload the display font to avoid FOUT on the hero headline.
+ *
+ * Only the Roman face is preloaded: it renders the above-the-fold h1, while the
+ * italic face is first needed further down (quotes, pullquotes) and would
+ * otherwise compete with the hero image for bandwidth. Body copy uses the
+ * system stack, so there is nothing else to preload.
  */
 function pacifica_preload_fonts(): void {
 	$fonts = array(
-		'/assets/fonts/Fraunces-VariableFont.woff2',
-		'/assets/fonts/Inter-VariableFont.woff2',
+		'/assets/fonts/BodoniModa-Roman.woff2',
 	);
 	foreach ( $fonts as $font ) {
 		if ( file_exists( PACIFICA_THEME_DIR . $font ) ) {

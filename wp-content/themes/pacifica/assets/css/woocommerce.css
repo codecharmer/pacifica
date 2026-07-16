@@ -43,13 +43,13 @@
 
 .wc-block-components-product-price ins,
 .wc-block-components-product-price__value.is-discounted {
-	color: var(--wp--preset--color--clay-deep);
+	color: var(--wp--preset--color--rosa-deep);
 	text-decoration: none;
 }
 
 /* Sale badge — warm pill. */
 .wc-block-components-product-sale-badge {
-	background-color: var(--wp--preset--color--trigo);
+	background-color: var(--wp--preset--color--rosa-soft);
 	color: var(--wp--preset--color--crust);
 	border-radius: var(--wp--custom--radius--pill);
 	font-family: var(--wp--preset--font-family--body);
@@ -70,7 +70,7 @@
 .woocommerce a.button,
 .woocommerce button.button,
 .single_add_to_cart_button {
-	background-color: var(--wp--preset--color--clay);
+	background-color: var(--wp--preset--color--rosa);
 	color: var(--wp--preset--color--linen);
 	border: 0;
 	border-radius: var(--wp--custom--radius--pill);
@@ -92,21 +92,21 @@
 .single_add_to_cart_button:hover,
 .wc-block-components-product-button .wp-block-button__link:focus-visible,
 .single_add_to_cart_button:focus-visible {
-	background-color: var(--wp--preset--color--clay-deep);
+	background-color: var(--wp--preset--color--rosa-deep);
 	color: var(--wp--preset--color--linen);
 	transform: translateY(-1px);
 }
 
 /* Secondary / outlined actions. */
 .wc-block-components-button.outlined {
-	color: var(--wp--preset--color--clay-deep);
+	color: var(--wp--preset--color--rosa-deep);
 	border: 1.5px solid currentColor;
 	border-radius: var(--wp--custom--radius--pill);
 	background-color: transparent;
 }
 
 .wc-block-components-button.wc-block-components-button.is-link {
-	color: var(--wp--preset--color--clay-deep);
+	color: var(--wp--preset--color--rosa-deep);
 }
 
 /* Quantity selector. */
@@ -150,7 +150,7 @@
 
 .wc-block-breadcrumbs a,
 .woocommerce-breadcrumb a {
-	color: var(--wp--preset--color--clay-deep);
+	color: var(--wp--preset--color--rosa-deep);
 	text-decoration: none;
 }
 
@@ -172,7 +172,7 @@
 
 .star-rating,
 .wc-block-components-product-rating__stars {
-	color: var(--wp--preset--color--trigo);
+	color: var(--wp--preset--color--rosa-soft);
 }
 
 .woocommerce-tabs ul.tabs,
@@ -181,7 +181,7 @@
 }
 
 .woocommerce-tabs ul.tabs li.active a {
-	color: var(--wp--preset--color--clay-deep);
+	color: var(--wp--preset--color--rosa-deep);
 }
 
 .product_meta {
@@ -246,12 +246,12 @@
 
 .wc-block-components-text-input input:focus,
 .wc-block-components-textarea:focus {
-	outline: 2px solid var(--wp--preset--color--clay-deep);
+	outline: 2px solid var(--wp--preset--color--rosa-deep);
 	outline-offset: 1px;
 }
 
 .wc-block-components-text-input.is-active label {
-	color: var(--wp--preset--color--clay-deep);
+	color: var(--wp--preset--color--rosa-deep);
 }
 
 /* -------------------------------------------------------------------------
@@ -264,32 +264,32 @@
 }
 
 .wc-block-components-notice-banner.is-success {
-	background-color: color-mix(in srgb, var(--wp--preset--color--olivo) 14%, var(--wp--preset--color--linen));
-	border-color: var(--wp--preset--color--olivo);
+	background-color: color-mix(in srgb, var(--wp--preset--color--taupe) 14%, var(--wp--preset--color--linen));
+	border-color: var(--wp--preset--color--taupe);
 	color: var(--wp--preset--color--crust);
 }
 
 .wc-block-components-notice-banner.is-info {
-	background-color: color-mix(in srgb, var(--wp--preset--color--trigo) 16%, var(--wp--preset--color--linen));
-	border-color: var(--wp--preset--color--trigo);
+	background-color: color-mix(in srgb, var(--wp--preset--color--rosa-soft) 16%, var(--wp--preset--color--linen));
+	border-color: var(--wp--preset--color--rosa-soft);
 	color: var(--wp--preset--color--crust);
 }
 
 .wc-block-components-notice-banner.is-error {
-	background-color: color-mix(in srgb, var(--wp--preset--color--clay) 12%, var(--wp--preset--color--linen));
-	border-color: var(--wp--preset--color--clay-deep);
+	background-color: color-mix(in srgb, var(--wp--preset--color--rosa) 12%, var(--wp--preset--color--linen));
+	border-color: var(--wp--preset--color--rosa-deep);
 	color: var(--wp--preset--color--crust);
 }
 
 /* Stock / availability. */
 .stock.out-of-stock,
 .wc-block-components-product-badge {
-	color: var(--wp--preset--color--clay-deep);
+	color: var(--wp--preset--color--rosa-deep);
 }
 
 /* Local-pickup emphasis. */
 .wc-block-checkout__shipping-method .wc-block-components-radio-control__option--checked {
-	border-color: var(--wp--preset--color--clay);
+	border-color: var(--wp--preset--color--rosa);
 }
 
 /* -------------------------------------------------------------------------

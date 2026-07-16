@@ -637,7 +637,14 @@ final class Installer {
 	 * @return array<int|string,mixed>
 	 */
 	private static function data( string $name ): array {
-		$file = trailingslashit( PACIFICA_CORE_DIR ) . 'data/' . sanitize_file_name( $name ) . '.php';
+		// Internal path building only — never sanitize_file_name(), which treats
+		// known document extensions as filenames ("pages" → "unnamed-file.pages"
+		// on WP 7.0+ because .pages is an iWork extension).
+		$name = strtolower( (string) preg_replace( '/[^a-z0-9_-]/i', '', $name ) );
+		if ( '' === $name ) {
+			return array();
+		}
+		$file = trailingslashit( PACIFICA_CORE_DIR ) . 'data/' . $name . '.php';
 		if ( ! is_readable( $file ) ) {
 			return array();
 		}

@@ -25,7 +25,7 @@ function pacifica_register_block_styles(): void {
 		'core/image'     => array(
 			array( 'name' => 'framed', 'label' => __( 'Enmarcada', 'pacifica' ) ),
 			array( 'name' => 'arch', 'label' => __( 'Arco', 'pacifica' ) ),
-			array( 'name' => 'duotone-clay', 'label' => __( 'Duotono arcilla', 'pacifica' ) ),
+			array( 'name' => 'duotone-rosa', 'label' => __( 'Duotono rosa', 'pacifica' ) ),
 		),
 		'core/group'     => array(
 			array( 'name' => 'card', 'label' => __( 'Tarjeta', 'pacifica' ) ),
@@ -37,11 +37,11 @@ function pacifica_register_block_styles(): void {
 			array( 'name' => 'script-accent', 'label' => __( 'Acento cursiva', 'pacifica' ) ),
 		),
 		'core/list'      => array(
-			array( 'name' => 'wheat-marker', 'label' => __( 'Viñeta trigo', 'pacifica' ) ),
+			array( 'name' => 'fleuron-marker', 'label' => __( 'Viñeta florón', 'pacifica' ) ),
 			array( 'name' => 'checkmarks', 'label' => __( 'Palomitas', 'pacifica' ) ),
 		),
 		'core/separator' => array(
-			array( 'name' => 'wheat', 'label' => __( 'Espiga', 'pacifica' ) ),
+			array( 'name' => 'fleuron', 'label' => __( 'Florón', 'pacifica' ) ),
 		),
 		'core/quote'     => array(
 			array( 'name' => 'testimonial', 'label' => __( 'Testimonio', 'pacifica' ) ),

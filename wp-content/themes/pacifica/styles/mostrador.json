@@ -2,7 +2,7 @@
 	"$schema": "https://schemas.wp.org/trunk/theme.json",
 	"version": 3,
 	"title": "Mostrador",
-	"description": "Variación clara con predominio de lino: fondo luminoso, texto crust y acentos de arcilla. Ligera y aireada para páginas de tienda.",
+	"description": "Variación clara con predominio de papel: fondo luminoso, texto tinta y acentos rosa. Ligera y aireada para páginas de tienda.",
 	"styles": {
 		"color": {
 			"background": "var:preset|color|linen",
@@ -16,7 +16,7 @@
 			},
 			"link": {
 				"color": {
-					"text": "var:preset|color|clay-deep"
+					"text": "var:preset|color|rosa-deep"
 				},
 				":hover": {
 					"color": {
@@ -31,18 +31,18 @@
 			},
 			"button": {
 				"color": {
-					"background": "var:preset|color|clay",
+					"background": "var:preset|color|rosa",
 					"text": "var:preset|color|linen"
 				},
 				":hover": {
 					"color": {
-						"background": "var:preset|color|clay-deep",
+						"background": "var:preset|color|rosa-deep",
 						"text": "var:preset|color|linen"
 					}
 				},
 				":focus": {
 					"color": {
-						"background": "var:preset|color|clay-deep",
+						"background": "var:preset|color|rosa-deep",
 						"text": "var:preset|color|linen"
 					}
 				}
@@ -57,7 +57,7 @@
 			"core/quote": {
 				"border": {
 					"left": {
-						"color": "var:preset|color|clay",
+						"color": "var:preset|color|rosa",
 						"width": "3px",
 						"style": "solid"
 					}

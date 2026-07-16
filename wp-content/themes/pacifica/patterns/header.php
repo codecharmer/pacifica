@@ -3,10 +3,17 @@
  * Title: Encabezado
  * Slug: pacifica/header
  * Categories: pacifica-parts
- * Description: Contenido interno del encabezado: logo, navegación principal y botón de pedido. Usado por parts/header.html.
+ * Description: Encabezado heredado del esquema anterior. Sin uso: parts/header.html trae su propio marcado desde el rediseño boutique.
  * Keywords: encabezado, header, navegación, menú, logo
  * Viewport Width: 1400
  * Inserter: no
+ */
+
+/*
+ * LEGACY — no lo referencia ninguna plantilla ni parte, y con `Inserter: no`
+ * tampoco puede insertarse desde el editor. El encabezado real vive en
+ * parts/header.html. Se conserva para no borrar trabajo sin confirmar;
+ * puede eliminarse junto con patterns/footer.php.
  */
 ?>
 <!-- wp:group {"align":"full","style":{"spacing":{"padding":{"top":"var:preset|spacing|sm","bottom":"var:preset|spacing|sm"}}},"layout":{"type":"constrained","contentSize":"1200px"}} -->
@@ -17,11 +24,11 @@
 <!-- wp:site-title {"level":0} /--></div>
 <!-- /wp:group -->
 
-<!-- wp:navigation {"overlayBackgroundColor":"crust","overlayTextColor":"masa","layout":{"type":"flex","justifyContent":"right","flexWrap":"wrap"},"style":{"spacing":{"blockGap":"var:preset|spacing|md"}},"fontSize":"base"} -->
+<!-- wp:navigation {"overlayBackgroundColor":"crust","overlayTextColor":"porcelain","layout":{"type":"flex","justifyContent":"right","flexWrap":"wrap"},"style":{"spacing":{"blockGap":"var:preset|spacing|md"}},"fontSize":"base"} -->
 <!-- wp:navigation-link {"label":"Inicio","url":"/"} /-->
 <!-- wp:navigation-link {"label":"Menú","url":"/menu"} /-->
-<!-- wp:navigation-link {"label":"Historia","url":"/historia"} /-->
-<!-- wp:navigation-link {"label":"Proceso","url":"/proceso"} /-->
+<!-- wp:navigation-link {"label":"Historia","url":"/nuestra-historia"} /-->
+<!-- wp:navigation-link {"label":"Proceso","url":"/nuestro-proceso"} /-->
 <!-- wp:navigation-link {"label":"Catering","url":"/catering"} /-->
 <!-- wp:navigation-link {"label":"Contacto","url":"/contacto"} /-->
 <!-- wp:buttons -->

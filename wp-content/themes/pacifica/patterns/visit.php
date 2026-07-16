@@ -8,8 +8,8 @@
  * Viewport Width: 1400
  */
 ?>
-<!-- wp:cover {"url":"<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/visit-vitrina.jpg","overlayColor":"crust","dimRatio":42,"minHeight":78,"minHeightUnit":"vh","align":"full","className":"pf-visit"} -->
-<div class="wp-block-cover alignfull pf-visit" style="min-height:78vh"><span aria-hidden="true" class="wp-block-cover__background has-crust-background-color has-background-dim-40 has-background-dim"></span><img class="wp-block-cover__image-background" alt="Vitrina de la panadería: hogazas artesanales en repisas de madera sobre muro de ladrillo" src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/visit-vitrina.jpg" data-object-fit="cover"/><div class="wp-block-cover__inner-container"><!-- wp:group {"className":"pf-visit-card","layout":{"type":"constrained"}} -->
+<!-- wp:cover {"url":"<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/visit-vitrina.jpg","overlayColor":"crust","dimRatio":42,"minHeight":78,"minHeightUnit":"vh","align":"full","anchor":"visitanos","className":"pf-visit"} -->
+<div id="visitanos" class="wp-block-cover alignfull pf-visit" style="min-height:78vh"><span aria-hidden="true" class="wp-block-cover__background has-crust-background-color has-background-dim-40 has-background-dim"></span><img class="wp-block-cover__image-background" alt="Vitrina de la panadería: hogazas artesanales en repisas de madera sobre muro de ladrillo" src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/visit-vitrina.jpg" data-object-fit="cover"/><div class="wp-block-cover__inner-container"><!-- wp:group {"className":"pf-visit-card","layout":{"type":"constrained"}} -->
 <div class="wp-block-group pf-visit-card"><!-- wp:paragraph {"className":"pf-eyebrow"} -->
 <p class="pf-eyebrow">Visítanos</p>
 <!-- /wp:paragraph -->

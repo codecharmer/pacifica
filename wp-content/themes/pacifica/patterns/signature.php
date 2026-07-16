@@ -8,8 +8,8 @@
  * Viewport Width: 1400
  */
 ?>
-<!-- wp:group {"align":"full","backgroundColor":"clay","textColor":"crust","className":"pf-signature","style":{"spacing":{"padding":{"top":"var:preset|spacing|xxl","bottom":"var:preset|spacing|xxl"}}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-group alignfull pf-signature has-crust-color has-clay-background-color has-text-color has-background" style="padding-top:var(--wp--preset--spacing--xxl);padding-bottom:var(--wp--preset--spacing--xxl)"><!-- wp:paragraph {"className":"pf-eyebrow"} -->
+<!-- wp:group {"align":"full","backgroundColor":"rosa","textColor":"crust","className":"pf-signature","style":{"spacing":{"padding":{"top":"var:preset|spacing|xxl","bottom":"var:preset|spacing|xxl"}}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignfull pf-signature has-crust-color has-rosa-background-color has-text-color has-background" style="padding-top:var(--wp--preset--spacing--xxl);padding-bottom:var(--wp--preset--spacing--xxl)"><!-- wp:paragraph {"className":"pf-eyebrow"} -->
 <p class="pf-eyebrow">Pacífica · pan de masa madre</p>
 <!-- /wp:paragraph -->
 
