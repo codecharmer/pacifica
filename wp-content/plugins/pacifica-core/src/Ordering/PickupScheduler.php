@@ -409,7 +409,9 @@ final class PickupScheduler implements Bootable {
 	 * `pacifica/pickup` namespace, when the Blocks API is available.
 	 */
 	public function register_block_fields(): void {
-		if ( ! function_exists( 'woocommerce_register_additional_checkout_fields' ) ) {
+		// NB: the WooCommerce API is singular — `..._checkout_field`. Guarding on
+		// the plural name silently disabled pickup on block checkout entirely.
+		if ( ! function_exists( 'woocommerce_register_additional_checkout_field' ) ) {
 			return; // Block API unavailable — classic hooks handle scheduling.
 		}
 
@@ -435,7 +437,7 @@ final class PickupScheduler implements Bootable {
 		}
 
 		try {
-			woocommerce_register_additional_checkout_fields(
+			woocommerce_register_additional_checkout_field(
 				array(
 					'id'       => self::BLOCK_DATE,
 					'label'    => __( 'Fecha de recolección', 'pacifica-core' ),
@@ -445,7 +447,7 @@ final class PickupScheduler implements Bootable {
 					'options'  => $date_options,
 				)
 			);
-			woocommerce_register_additional_checkout_fields(
+			woocommerce_register_additional_checkout_field(
 				array(
 					'id'       => self::BLOCK_SLOT,
 					'label'    => __( 'Horario de recolección', 'pacifica-core' ),
