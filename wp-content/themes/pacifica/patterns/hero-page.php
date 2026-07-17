@@ -16,8 +16,6 @@
 
 <!-- wp:post-title {"level":1,"fontSize":"xxl"} /-->
 
-<!-- wp:paragraph {"className":"pf-lede"} -->
-<p class="pf-lede">Una entradilla breve que sitúa a quien llega: qué encontrará aquí y por qué le importa.</p>
-<!-- /wp:paragraph --></div>
+<!-- wp:post-excerpt {"className":"pf-lede"} /--></div>
 <!-- /wp:group --></div>
 <!-- /wp:group -->

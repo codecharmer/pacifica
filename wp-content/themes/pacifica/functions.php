@@ -28,3 +28,4 @@ require_once PACIFICA_THEME_DIR . '/inc/assets.php';
 require_once PACIFICA_THEME_DIR . '/inc/block-styles.php';
 require_once PACIFICA_THEME_DIR . '/inc/patterns.php';
 require_once PACIFICA_THEME_DIR . '/inc/block-bindings.php';
+require_once PACIFICA_THEME_DIR . '/inc/quantity-stepper.php';

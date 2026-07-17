@@ -1351,3 +1351,6 @@ header.wp-block-template-part {
 	color: var(--wp--preset--color--linen);
 	box-shadow: inset 0 0 0 1.5px var(--wp--preset--color--crust);
 }
+
+/* post-excerpt used as a lede renders its text in an inner paragraph. */
+.wp-block-post-excerpt.pf-lede .wp-block-post-excerpt__excerpt { margin: 0; }

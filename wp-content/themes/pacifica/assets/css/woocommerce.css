@@ -374,3 +374,56 @@
 .woocommerce div.product .woocommerce-tabs ul.tabs li::after {
 	display: none !important;
 }
+
+/* -------------------------------------------------------------------------
+ * 9. Grid quantity stepper (pf-qty) — mutates the product-button context
+ * ---------------------------------------------------------------------- */
+
+.wp-block-woocommerce-product-button {
+	gap: 0.5rem;
+}
+
+.pf-qty {
+	display: inline-flex;
+	align-items: center;
+	border: 1px solid color-mix(in srgb, var(--wp--preset--color--crust) 22%, transparent);
+	border-radius: 2px;
+	background-color: var(--wp--preset--color--linen);
+	overflow: hidden;
+	flex: none;
+}
+
+.pf-qty__btn {
+	appearance: none;
+	border: 0;
+	background: none;
+	cursor: pointer;
+	font-family: var(--wp--preset--font-family--body);
+	font-size: 1rem;
+	line-height: 1;
+	color: var(--wp--preset--color--crust-soft);
+	padding: 0.65rem 0.7rem;
+	transition: background-color var(--wp--custom--duration--fast) var(--wp--custom--easing--standard),
+		color var(--wp--custom--duration--fast) var(--wp--custom--easing--standard);
+}
+
+.pf-qty__btn:hover,
+.pf-qty__btn:focus-visible {
+	background-color: var(--wp--preset--color--porcelain-deep);
+	color: var(--wp--preset--color--crust);
+}
+
+.pf-qty__n {
+	min-width: 1.6rem;
+	text-align: center;
+	font-variant-numeric: tabular-nums;
+	font-weight: 600;
+	font-size: var(--wp--preset--font-size--sm);
+	color: var(--wp--preset--color--crust);
+}
+
+/* Full-width add button beneath the stepper (Woo stacks the block as a column). */
+.wp-block-woocommerce-product-button .wc-block-components-product-button__button {
+	width: 100%;
+	white-space: nowrap;
+}
