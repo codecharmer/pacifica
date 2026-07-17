@@ -14,9 +14,7 @@
 <p class="pf-eyebrow">Pacífica Panadería</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:heading {"level":1,"fontSize":"xxl"} -->
-<h1 class="wp-block-heading has-xxl-font-size">Título de la página</h1>
-<!-- /wp:heading -->
+<!-- wp:post-title {"level":1,"fontSize":"xxl"} /-->
 
 <!-- wp:paragraph {"className":"pf-lede"} -->
 <p class="pf-lede">Una entradilla breve que sitúa a quien llega: qué encontrará aquí y por qué le importa.</p>

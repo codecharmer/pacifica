@@ -53,7 +53,12 @@ final class PickupScheduler implements Bootable {
 		add_action( 'woocommerce_checkout_create_order', array( $this, 'save_classic_fields' ), 10, 2 );
 
 		// Block checkout (WooCommerce Blocks additional checkout fields API).
-		add_action( 'woocommerce_init', array( $this, 'register_block_fields' ) );
+		// NB: not `woocommerce_init` — that fires at init:0, BEFORE WooCommerce
+		// registers its order types (init:5). Field option building queries
+		// orders (slot capacity), and wc_get_orders() before type registration
+		// makes WC_Order_Factory throw "classname not found" — a site-wide 500
+		// as soon as the first order with pickup meta exists.
+		add_action( 'init', array( $this, 'register_block_fields' ), 20 );
 		add_action( 'woocommerce_blocks_validate_location_order_fields', array( $this, 'validate_block_fields' ), 10, 2 );
 		add_action( 'woocommerce_store_api_checkout_order_processed', array( $this, 'normalize_block_fields' ) );
 	}
@@ -217,19 +222,26 @@ final class PickupScheduler implements Bootable {
 			return array();
 		}
 
-		$orders = wc_get_orders(
-			array(
-				'limit'      => -1,
-				'status'     => self::OCCUPYING_STATUSES,
-				'return'     => 'objects',
-				'meta_query' => array(
-					array(
-						'key'   => self::META_DATE,
-						'value' => $date,
+		try {
+			$orders = wc_get_orders(
+				array(
+					'type'       => 'shop_order',
+					'limit'      => -1,
+					'status'     => self::OCCUPYING_STATUSES,
+					'return'     => 'objects',
+					'meta_query' => array(
+						array(
+							'key'   => self::META_DATE,
+							'value' => $date,
+						),
 					),
-				),
-			)
-		);
+				)
+			);
+		} catch ( \Throwable $e ) {
+			// Capacity math must never fatal the site (e.g. queries fired
+			// before order types are registered). Fail open: no slots counted.
+			return array();
+		}
 
 		$counts = array();
 		foreach ( $orders as $order ) {

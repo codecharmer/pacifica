@@ -66,11 +66,11 @@
 
 <!-- wp:group {"className":"pf-row","layout":{"type":"default"}} -->
 <div class="wp-block-group pf-row"><!-- wp:paragraph {"className":"pf-name"} -->
-<p class="pf-name">Frutos secos<span>Nuez, arándano y semillas</span></p>
+<p class="pf-name">Frutos secos y nueces<span>Nuez, arándano y semillas</span></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"className":"pf-price"} -->
-<p class="pf-price"><small>$</small>110</p>
+<p class="pf-price"><small>$</small>98</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group --></div>
 <!-- /wp:group --></div>

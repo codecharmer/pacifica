@@ -51,7 +51,7 @@
 .wc-block-components-product-sale-badge {
 	background-color: var(--wp--preset--color--rosa-soft);
 	color: var(--wp--preset--color--crust);
-	border-radius: var(--wp--custom--radius--pill);
+	border-radius: 2px;
 	font-family: var(--wp--preset--font-family--body);
 	font-weight: 600;
 	letter-spacing: 0.04em;
@@ -71,13 +71,15 @@
 .woocommerce button.button,
 .single_add_to_cart_button {
 	background-color: var(--wp--preset--color--rosa);
-	color: var(--wp--preset--color--linen);
+	color: var(--wp--preset--color--crust);
 	border: 0;
-	border-radius: var(--wp--custom--radius--pill);
+	border-radius: 2px;
 	font-family: var(--wp--preset--font-family--body);
 	font-weight: 600;
-	letter-spacing: 0.01em;
-	padding: 0.85rem 1.6rem;
+	font-size: var(--wp--preset--font-size--sm);
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+	padding: 0.9rem 1.6rem;
 	box-shadow: none;
 	transition:
 		background-color var(--wp--custom--duration--base) var(--wp--custom--easing--standard),
@@ -92,7 +94,7 @@
 .single_add_to_cart_button:hover,
 .wc-block-components-product-button .wp-block-button__link:focus-visible,
 .single_add_to_cart_button:focus-visible {
-	background-color: var(--wp--preset--color--rosa-deep);
+	background-color: var(--wp--preset--color--crust);
 	color: var(--wp--preset--color--linen);
 	transform: translateY(-1px);
 }
@@ -101,7 +103,7 @@
 .wc-block-components-button.outlined {
 	color: var(--wp--preset--color--rosa-deep);
 	border: 1.5px solid currentColor;
-	border-radius: var(--wp--custom--radius--pill);
+	border-radius: 2px;
 	background-color: transparent;
 }
 
@@ -112,7 +114,7 @@
 /* Quantity selector. */
 .wc-block-components-quantity-selector {
 	border: 1px solid color-mix(in srgb, var(--wp--preset--color--crust) 15%, transparent);
-	border-radius: var(--wp--custom--radius--pill);
+	border-radius: 2px;
 	overflow: hidden;
 }
 
@@ -129,7 +131,7 @@
 .woocommerce-ordering select,
 .wc-block-sort-select__select {
 	border: 1px solid color-mix(in srgb, var(--wp--preset--color--crust) 15%, transparent);
-	border-radius: var(--wp--custom--radius--pill);
+	border-radius: 2px;
 	background-color: var(--wp--preset--color--linen);
 	padding: 0.5rem 2rem 0.5rem 1rem;
 	font-family: var(--wp--preset--font-family--body);
@@ -305,4 +307,70 @@
 .wc-block-order-confirmation-summary,
 .wc-block-order-confirmation-totals {
 	border-radius: var(--wp--custom--radius--lg);
+}
+
+/* -------------------------------------------------------------------------
+ * 8. Product details tabs — hairline underline, no boxes
+ * ---------------------------------------------------------------------- */
+
+.woocommerce-tabs ul.tabs.wc-tabs {
+	display: flex;
+	gap: 2rem;
+	margin: 0 0 var(--wp--preset--spacing--md);
+	padding: 0;
+	border-bottom: 1px solid color-mix(in srgb, var(--wp--preset--color--crust) 14%, transparent);
+	overflow-x: auto;
+}
+
+.woocommerce-tabs ul.tabs.wc-tabs li {
+	background: none;
+	border: 0;
+	border-radius: 0;
+	margin: 0;
+	padding: 0;
+}
+
+.woocommerce-tabs ul.tabs.wc-tabs li::before,
+.woocommerce-tabs ul.tabs.wc-tabs li::after {
+	display: none;
+}
+
+.woocommerce-tabs ul.tabs.wc-tabs li a {
+	display: inline-block;
+	padding: 0.6rem 0;
+	font-size: var(--wp--preset--font-size--sm);
+	font-weight: 600;
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+	color: var(--wp--preset--color--crust-soft);
+	border-bottom: 2px solid transparent;
+}
+
+.woocommerce-tabs ul.tabs.wc-tabs li.active a {
+	color: var(--wp--preset--color--crust);
+	border-bottom-color: var(--wp--preset--color--rosa-deep);
+}
+
+/* The panel repeats the tab name as a huge heading — the tab already says it. */
+.woocommerce-Tabs-panel > h2:first-of-type {
+	display: none;
+}
+
+/* Core ships `.woocommerce div.product .woocommerce-tabs ul.tabs li` at higher
+   specificity with boxed backgrounds — match and flatten it. */
+.woocommerce div.product .woocommerce-tabs ul.tabs li,
+.woocommerce-page div.product .woocommerce-tabs ul.tabs li,
+#pf-main .woocommerce-tabs ul.tabs li {
+	background: none !important;
+	border: 0 !important;
+	border-radius: 0 !important;
+	box-shadow: none !important;
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
+.woocommerce div.product .woocommerce-tabs ul.tabs::before,
+.woocommerce div.product .woocommerce-tabs ul.tabs li::before,
+.woocommerce div.product .woocommerce-tabs ul.tabs li::after {
+	display: none !important;
 }
