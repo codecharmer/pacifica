@@ -46,6 +46,12 @@ final class TwilioClient {
 		$token = (string) ( $sms['twilio_token'] ?? '' );
 		$from  = (string) ( $sms['twilio_from'] ?? '' );
 		$mssid = (string) ( $sms['messaging_service_sid'] ?? '' );
+		// API-key auth (SK… + secret) still needs the Account SID (AC…) in the
+		// endpoint path; with classic AC+auth-token creds the two are the same.
+		$account = (string) ( $sms['twilio_account_sid'] ?? '' );
+		if ( '' === $account ) {
+			$account = $sid;
+		}
 
 		if ( '' === $sid || '' === $token ) {
 			return self::failure( __( 'Faltan las credenciales de Twilio.', 'pacifica-core' ) );
@@ -59,19 +65,43 @@ final class TwilioClient {
 			return self::failure( __( 'Destinatario o mensaje vacío.', 'pacifica-core' ) );
 		}
 
+		// Dry run: compose and report success without calling the provider, so
+		// the full order → notify → reply workflow (and the SMS log) can be
+		// exercised on local/staging or while provider onboarding is pending.
+		// Callers log the message either way, so nothing else changes.
+		if ( ! empty( $sms['dry_run'] ) ) {
+			return array(
+				'success' => true,
+				'sid'     => 'DRYRUN-' . substr( md5( $to . $body . (string) time() ), 0, 20 ),
+				'error'   => '',
+			);
+		}
+
+		// Channel prefixing: WhatsApp uses the same Messages endpoint but both
+		// addresses must carry a `whatsapp:` scheme. Numbers are stored plain
+		// (E.164) so the same config serves either channel.
+		$channel = 'whatsapp' === (string) ( $sms['channel'] ?? 'sms' ) ? 'whatsapp' : 'sms';
+		$address = static function ( string $number ) use ( $channel ): string {
+			$number = trim( $number );
+			if ( 'whatsapp' !== $channel || '' === $number ) {
+				return $number;
+			}
+			return 0 === strpos( $number, 'whatsapp:' ) ? $number : 'whatsapp:' . $number;
+		};
+
 		$payload = array(
-			'To'   => $to,
+			'To'   => $address( $to ),
 			'Body' => $body,
 		);
 		// MessagingServiceSid takes precedence when both are present.
 		if ( '' !== $mssid ) {
 			$payload['MessagingServiceSid'] = $mssid;
 		} else {
-			$payload['From'] = $from;
+			$payload['From'] = $address( $from );
 		}
 
 		$response = wp_remote_post(
-			sprintf( self::ENDPOINT, rawurlencode( $sid ) ),
+			sprintf( self::ENDPOINT, rawurlencode( $account ) ),
 			array(
 				'timeout' => 15,
 				'headers' => array(

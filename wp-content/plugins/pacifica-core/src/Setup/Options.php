@@ -98,7 +98,10 @@ final class Options implements Bootable {
 			self::SMS => array(
 				'enabled'                => false,
 				'provider'               => 'twilio',
+				'channel'                => 'sms',
+				'dry_run'                => false,
 				'twilio_sid'             => '',
+				'twilio_account_sid'     => '',
 				'twilio_token'           => '',
 				'twilio_from'            => '',
 				'messaging_service_sid'  => '',
@@ -158,8 +161,11 @@ final class Options implements Bootable {
 
 		$const_map = array(
 			'twilio_sid'            => 'PACIFICA_TWILIO_SID',
+			'twilio_account_sid'    => 'PACIFICA_TWILIO_ACCOUNT_SID',
 			'twilio_token'          => 'PACIFICA_TWILIO_AUTH_TOKEN',
 			'twilio_from'           => 'PACIFICA_TWILIO_FROM',
+			'channel'               => 'PACIFICA_TWILIO_CHANNEL',
+			'dry_run'               => 'PACIFICA_SMS_DRY_RUN',
 			'messaging_service_sid' => 'PACIFICA_TWILIO_MESSAGING_SID',
 		);
 		foreach ( $const_map as $key => $const ) {
@@ -255,8 +261,11 @@ final class Options implements Bootable {
 		$out['enabled']               = ! empty( $value['enabled'] );
 		$out['provider']              = 'twilio';
 		$out['twilio_sid']            = sanitize_text_field( (string) ( $value['twilio_sid'] ?? '' ) );
+		$out['twilio_account_sid']    = sanitize_text_field( (string) ( $value['twilio_account_sid'] ?? '' ) );
 		$out['twilio_token']          = sanitize_text_field( (string) ( $value['twilio_token'] ?? '' ) );
 		$out['twilio_from']           = sanitize_text_field( (string) ( $value['twilio_from'] ?? '' ) );
+		$out['dry_run']               = ! empty( $value['dry_run'] );
+		$out['channel']               = in_array( (string) ( $value['channel'] ?? 'sms' ), array( 'sms', 'whatsapp' ), true ) ? (string) $value['channel'] : 'sms';
 		$out['messaging_service_sid'] = sanitize_text_field( (string) ( $value['messaging_service_sid'] ?? '' ) );
 		$out['notify_customer']       = ! empty( $value['notify_customer'] );
 		$out['notify_staff']          = ! empty( $value['notify_staff'] );

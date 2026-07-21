@@ -536,11 +536,27 @@ final class Settings implements Bootable {
 		try {
 			$client = new $client_class();
 			$result = $client->send( $to, $body );
-			if ( false === $result || ( is_wp_error( $result ) ) ) {
-				$message = ( $result instanceof \WP_Error ) ? $result->get_error_message() : __( 'No se pudo enviar el mensaje.', 'pacifica-core' );
-				wp_send_json_error( array( 'message' => $message ), 502 );
+
+			// send() always returns array{success:bool,sid:string,error:string} —
+			// report the provider's own error verbatim so misconfiguration
+			// (bad credentials, unverified number, trial limits) is visible here
+			// instead of silently reading as success.
+			if ( ! is_array( $result ) || empty( $result['success'] ) ) {
+				$error = is_array( $result ) ? (string) ( $result['error'] ?? '' ) : '';
+				wp_send_json_error(
+					array(
+						'message' => '' !== $error
+							? sprintf( /* translators: %s: provider error message. */ __( 'No se pudo enviar: %s', 'pacifica-core' ), $error )
+							: __( 'No se pudo enviar el mensaje.', 'pacifica-core' ),
+					),
+					502
+				);
 			}
-			wp_send_json_success( array( 'message' => __( 'Mensaje de prueba enviado.', 'pacifica-core' ) ) );
+			wp_send_json_success(
+				array(
+					'message' => sprintf( /* translators: %s: Twilio message SID. */ __( 'Mensaje de prueba enviado (%s).', 'pacifica-core' ), (string) ( $result['sid'] ?? '' ) ),
+				)
+			);
 		} catch ( \Throwable $e ) {
 			wp_send_json_error( array( 'message' => __( 'Error al enviar el mensaje de prueba.', 'pacifica-core' ) ), 500 );
 		}
