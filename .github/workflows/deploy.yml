@@ -28,25 +28,6 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Set up Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: lts/*
-
-      - name: Build front-end assets where a build is defined
-        run: |
-          for SRC in $WP_PATHS; do
-            [ -d "$SRC" ] || continue
-            [ -f "$SRC/package.json" ] || continue
-            node -e "process.exit(require('./$SRC/package.json').scripts?.build?0:1)" || continue
-            echo "Building $SRC"
-            (
-              cd "$SRC"
-              if [ -f package-lock.json ]; then npm ci; else npm install; fi
-              npm run build
-            )
-          done
-
       - name: Install PHP dependencies (production only)
         run: |
           for SRC in $WP_PATHS; do
