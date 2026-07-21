@@ -65,10 +65,21 @@ jobs:
              fi
              command -v wp >/dev/null 2>&1 || { echo 'wp-cli is required on the server for --wp-bootstrap'; exit 1; }
              mkdir -p \"\$DP\"
+             # Bundled wp-cli builds (e.g. cPanel WP Toolkit) can ship a low PHP
+             # memory limit; raise it for every wp call in this step.
+             export WP_CLI_PHP_ARGS='-d memory_limit=512M'
              WP=\"wp --path=\$DP --allow-root\"
 
              echo 'Downloading WordPress core...'
-             \$WP core download --locale='es_MX' || \$WP core download
+             # Prefer curl+tar: 'wp core download' extracts in PHP and dies on a
+             # 128M limit. This path uses no PHP at all. Core is fetched in
+             # en_US and the locale is applied below via the language pack.
+             if command -v curl >/dev/null 2>&1 && command -v tar >/dev/null 2>&1; then
+               curl -fsSL https://wordpress.org/latest.tar.gz | tar -xz --strip-components=1 -C \"\$DP\"
+             else
+               \$WP core download
+             fi
+             test -f \"\$DP/wp-settings.php\" || { echo 'WordPress core files missing after download'; exit 1; }
 
              echo 'Writing wp-config.php...'
              \$WP config create                --dbname='${{ secrets.WP_DB_NAME }}'                --dbuser='${{ secrets.WP_DB_USER }}'                --dbpass='${{ secrets.WP_DB_PASSWORD }}'                --dbhost='${{ secrets.WP_DB_HOST }}'                --locale='es_MX'                --skip-check
@@ -144,6 +155,7 @@ jobs:
             "${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}" \
             "set -e
              command -v wp >/dev/null 2>&1 || { echo 'wp-cli not installed on server; skipping activation'; exit 0; }
+             export WP_CLI_PHP_ARGS='-d memory_limit=512M'
              WP=\"wp --path=${{ secrets.DEPLOY_PATH }} --allow-root\"
              # Activation is idempotent; already-active is reported and ignored.
              \$WP theme activate 'pacifica' || echo 'WARN: theme activation failed'
@@ -168,6 +180,9 @@ jobs:
                exit 0
              fi
              command -v wp >/dev/null 2>&1 || { echo 'wp-cli not installed on server; cannot seed'; exit 1; }
+             # Seeding imports media and regenerates image sizes — the most
+             # memory-hungry step, and the likeliest to hit a capped PHP limit.
+             export WP_CLI_PHP_ARGS='-d memory_limit=512M'
              cd '${{ secrets.DEPLOY_PATH }}'
              # Deploys run over SSH as root, where wp-cli refuses to run unless
              # told to. Wrap it so the configured command can be plain 'wp ...'.
