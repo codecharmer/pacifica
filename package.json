@@ -25,7 +25,7 @@
     "env:clean": "wp-env clean all",
     "env:cli": "wp-env run cli wp",
     "env:install-content": "wp-env run cli wp pacifica install",
-    "postinstall": "node -e \"console.log('\\n[pacifica] Node deps installed. Next: `composer install` (PHP tooling), then `npm run env:start` to boot the local WordPress, then `npm run build` to compile future SCSS/JS entries. See docs/setup.md.')\""
+    "postinstall": "node -e \"console.log('\\n[pacifica] Node deps installed. Next: composer install (PHP tooling), then npm run env:start to boot the local WordPress, then npm run build to compile future SCSS/JS entries. See docs/setup.md.')\""
   },
   "devDependencies": {
     "@wordpress/env": "^10.0.0"
