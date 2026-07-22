@@ -1,0 +1,20 @@
+input#rsa-user-message {
+	font-size: 2em;
+	min-width: 250px;
+}
+
+.rsa-user-message {
+	text-align: center
+}
+
+.rsa-ip-addresses-field-wrapper {
+	position: relative;
+}
+
+.rsa-ip-addresses-caching-notice {
+	margin-bottom: 1em;
+}
+
+.rsa-inline-page-cache-warning {
+	color: #d63638;
+}
