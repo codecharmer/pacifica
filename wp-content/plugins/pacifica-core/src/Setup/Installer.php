@@ -49,16 +49,16 @@ final class Installer {
 	 */
 	private const CATEGORIES = array(
 		'pan-rustico' => array(
-			'name'        => 'Pan Rústico',
-			'description' => 'Hogazas de masa madre de fermentación lenta: corteza de fuego, miga alveolada y hasta dos días de tiempo. El corazón de Pacífica.',
+			'name'        => 'Pan rústico',
+			'description' => 'Hogazas y panes de masa madre de fermentación lenta.',
 		),
 		'pan-dulce'   => array(
-			'name'        => 'Pan Dulce',
-			'description' => 'Bollería laminada a mano, galletas y los clásicos del mostrador. Pequeños lujos para acompañar el café.',
+			'name'        => 'Pan dulce',
+			'description' => 'Bollería, galletas y pan dulce hecho a mano.',
 		),
 		'varios'      => array(
 			'name'        => 'Varios',
-			'description' => 'Café de olla, bebidas de temporada y la despensa de la casa: cajas de regalo y surtidos listos para compartir.',
+			'description' => 'Despensa de la casa: pestos, granola y más.',
 		),
 	);
 
@@ -106,6 +106,8 @@ final class Installer {
 		$report['options'] = 'installed';
 		$report['messages'][] = 'Opciones instaladas.';
 
+		$report['branding'] = self::install_branding();
+
 		$cat_map = array();
 		if ( self::has_woocommerce() ) {
 			$cat_result        = self::install_categories();
@@ -136,6 +138,35 @@ final class Installer {
 	/* Options                                                                */
 	/* ---------------------------------------------------------------------- */
 
+	/* ---------------------------------------------------------------------- */
+	/* Branding                                                               */
+	/* ---------------------------------------------------------------------- */
+
+	/**
+	 * Seed the site logo so the header mark survives a clean install.
+	 *
+	 * The header renders core/site-logo, which reads the `custom_logo` theme
+	 * mod — a value that exists only in the database. Setting it by hand in the
+	 * Customizer works right up until the next fresh deploy, at which point the
+	 * header silently falls back to the site title, so it is seeded here with
+	 * everything else.
+	 *
+	 * The source is the ink mark on transparency (`marca-pacifica.png`); the
+	 * transparent header inverts it to linen in CSS, so one asset serves both
+	 * the dark hero and the light interior header.
+	 *
+	 * @return array{logo:int}
+	 */
+	public static function install_branding(): array {
+		$logo_id = MediaImporter::ensure( 'marca-pacifica', 'Pacífica Panadería' );
+
+		if ( $logo_id > 0 ) {
+			set_theme_mod( 'custom_logo', $logo_id );
+		}
+
+		return array( 'logo' => $logo_id );
+	}
+
 	public static function install_options(): void {
 		Options::install_defaults();
 	}
@@ -149,13 +180,32 @@ final class Installer {
 	 */
 	public static function install_categories(): array {
 		$map    = array();
-		$report = array( 'created' => 0, 'existing' => 0 );
+		$report = array( 'created' => 0, 'existing' => 0, 'updated' => 0 );
 
 		foreach ( self::CATEGORIES as $slug => $def ) {
 			$existing = get_term_by( 'slug', $slug, 'product_cat' );
 			if ( $existing instanceof \WP_Term ) {
 				$map[ $slug ] = (int) $existing->term_id;
 				++$report['existing'];
+
+				// Keep terms we created in step with the seed data — otherwise a
+				// corrected name or description never reaches an install that
+				// already ran. Terms the client made by hand are left alone:
+				// their copy is the source of truth, not ours.
+				if ( get_term_meta( $existing->term_id, self::MARKER_META, true )
+					&& ( $existing->name !== $def['name'] || $existing->description !== $def['description'] )
+				) {
+					wp_update_term(
+						$existing->term_id,
+						'product_cat',
+						array(
+							'name'        => $def['name'],
+							'description' => $def['description'],
+						)
+					);
+					++$report['updated'];
+				}
+
 				continue;
 			}
 			$term = wp_insert_term( $def['name'], 'product_cat', array(
@@ -672,6 +722,10 @@ final class Installer {
 				++$report['categories'];
 			}
 		}
+
+		// The logo attachment is removed with the rest of the seeded media
+		// above; drop the theme mod too so it does not point at a dead ID.
+		remove_theme_mod( 'custom_logo' );
 
 		delete_option( MediaImporter::CACHE_OPTION );
 		delete_option( 'pacifica_content_installed' );

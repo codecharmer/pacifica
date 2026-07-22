@@ -34,18 +34,24 @@ final class MediaImporter {
 	/** Raster source extensions checked, in priority order. */
 	private const RASTER_EXT = array( 'jpg', 'jpeg', 'png', 'webp' );
 
-	/** Brand palette (from docs/brand-brief.md §3.1). */
+	/**
+	 * Brand palette, mirroring theme.json.
+	 *
+	 * These were still the terracotta/wheat values from the first build, which
+	 * the client rejected — so every generated placeholder came out in a scheme
+	 * the site no longer uses. Keep these in step with theme.json's palette.
+	 */
 	private const COLORS = array(
-		'masa'      => '#F6EFE4',
-		'masa_deep' => '#EDE3D2',
-		'linen'     => '#FBF7F0',
-		'crust'     => '#2E2016',
-		'clay'      => '#B4643F',
-		'clay_deep' => '#8F4A2C',
-		'ember'     => '#C6733A',
-		'trigo'     => '#D8A44A',
-		'olivo'     => '#6E6B4A',
-		'stone'     => '#9A8E7C',
+		'linen'          => '#FAF6F2',
+		'porcelain'      => '#F2ECE6',
+		'porcelain_deep' => '#E7DED4',
+		'crust'          => '#221B16',
+		'crust_soft'     => '#4A3A30',
+		'rosa'           => '#B9998C',
+		'rosa_deep'      => '#8E6E62',
+		'rosa_soft'      => '#C9AEA2',
+		'taupe'          => '#7C6E60',
+		'stone'          => '#94897C',
 	);
 
 	/**
@@ -352,19 +358,19 @@ final class MediaImporter {
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" role="img" aria-label="{$label} — imagen pendiente">
   <defs>
     <linearGradient id="oven" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="{$c['ember']}"/>
-      <stop offset="1" stop-color="{$c['clay_deep']}"/>
+      <stop offset="0" stop-color="{$c['rosa_deep']}"/>
+      <stop offset="1" stop-color="{$c['crust_soft']}"/>
     </linearGradient>
   </defs>
-  <rect width="1200" height="800" fill="{$c['masa']}"/>
-  <rect x="48" y="48" width="1104" height="704" rx="20" fill="{$c['masa_deep']}"/>
+  <rect width="1200" height="800" fill="{$c['porcelain']}"/>
+  <rect x="48" y="48" width="1104" height="704" rx="20" fill="{$c['porcelain_deep']}"/>
   <rect x="48" y="300" width="1104" height="260" fill="url(#oven)"/>
-  <circle cx="600" cy="180" r="46" fill="none" stroke="{$c['clay']}" stroke-width="6"/>
-  <path d="M577 180 q23 -34 46 0 q-23 34 -46 0 Z" fill="{$c['trigo']}"/>
-  <text x="600" y="250" text-anchor="middle" font-family="Georgia, serif" font-size="30" letter-spacing="10" fill="{$c['clay_deep']}">PAC&#205;FICA</text>
+  <circle cx="600" cy="180" r="46" fill="none" stroke="{$c['rosa']}" stroke-width="6"/>
+  <path d="M577 180 q23 -34 46 0 q-23 34 -46 0 Z" fill="{$c['rosa_soft']}"/>
+  <text x="600" y="250" text-anchor="middle" font-family="Georgia, serif" font-size="30" letter-spacing="10" fill="{$c['crust_soft']}">PAC&#205;FICA</text>
   {$label_markup}
   <text x="600" y="620" text-anchor="middle" font-family="Georgia, serif" font-size="22" letter-spacing="6" fill="{$c['stone']}">IMAGEN PENDIENTE &#183; MASA MADRE, TIEMPO Y FUEGO</text>
-  <text x="600" y="700" text-anchor="middle" font-family="Georgia, serif" font-size="18" fill="{$c['olivo']}">Coloca la foto real en data/media/source/{$key}.jpg</text>
+  <text x="600" y="700" text-anchor="middle" font-family="Georgia, serif" font-size="18" fill="{$c['taupe']}">Coloca la foto real en data/media/source/{$key}.jpg</text>
 </svg>
 SVG;
 	}

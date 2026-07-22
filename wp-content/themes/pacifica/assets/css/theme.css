@@ -193,6 +193,22 @@ header.wp-block-template-part {
 	color: var(--wp--preset--color--crust);
 }
 
+/* Site logo (core/site-logo) — the mark is ink on transparency, so one asset
+ * serves both headers: ink on the opaque one, flipped to light over the hero.
+ * Scales down on narrow screens so it never crowds the cart and CTA. */
+.pf-header .wp-block-site-logo img {
+	display: block;
+	width: clamp(40px, 9vw, 54px);
+	height: auto;
+}
+
+/* Not gated on :not(.is-scrolled) like the link colours above: the transparent
+ * header is homepage-only and scrolls away rather than going solid, so its
+ * contents stay light for as long as it is on screen. */
+.pf-header--transparent .wp-block-site-logo img {
+	filter: brightness(0) invert(1);
+}
+
 .pf-header--transparent:not(.is-scrolled) .pf-header__cta .wp-block-button__link {
 	background-color: var(--wp--preset--color--linen);
 	color: var(--wp--preset--color--crust);
