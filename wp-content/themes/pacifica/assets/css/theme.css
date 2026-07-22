@@ -165,9 +165,32 @@ header.wp-block-template-part {
 	background-color: transparent;
 }
 
+/* Everything sitting on the hero photo has to be light, not just the links.
+ * WooCommerce injects mini-cart and customer-account into block-theme headers
+ * via Block Hooks, and core renders the mobile menu toggle as a <button> — none
+ * of which this rule reached while it only matched `a`, so all three rendered
+ * in dark ink and disappeared against the photograph. Their SVGs inherit
+ * `fill: currentColor`, so setting `color` is enough; `fill` is restated for
+ * the account icon, whose markup carries no fill attribute of its own. */
 .pf-header--transparent:not(.is-scrolled) .wp-block-site-title a,
-.pf-header--transparent:not(.is-scrolled) .pf-nav a {
+.pf-header--transparent:not(.is-scrolled) .pf-nav a,
+.pf-header--transparent:not(.is-scrolled) .wp-block-navigation__responsive-container-open,
+.pf-header--transparent:not(.is-scrolled) .wc-block-mini-cart__button,
+.pf-header--transparent:not(.is-scrolled) .wc-block-customer-account__link {
 	color: var(--wp--preset--color--linen);
+}
+
+.pf-header--transparent:not(.is-scrolled) .wp-block-navigation__responsive-container-open svg,
+.pf-header--transparent:not(.is-scrolled) .wc-block-mini-cart__icon,
+.pf-header--transparent:not(.is-scrolled) .wc-block-customer-account__account-icon {
+	fill: currentColor;
+}
+
+/* The quantity badge inverts: linen pill, dark numeral, so it stays legible
+ * against the photo instead of dark-on-dark. */
+.pf-header--transparent:not(.is-scrolled) .wc-block-mini-cart__badge {
+	background-color: var(--wp--preset--color--linen);
+	color: var(--wp--preset--color--crust);
 }
 
 .pf-header--transparent:not(.is-scrolled) .pf-header__cta .wp-block-button__link {
