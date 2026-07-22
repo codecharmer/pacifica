@@ -38,39 +38,49 @@ final class Installer {
 	public const SEO_SHORT = '_pacifica_seo_short';
 
 	/**
-	 * The seven product categories (brand-brief §5), slug => definition.
+	 * The three product categories the storefront is organised around,
+	 * slug => definition.
+	 *
+	 * Consolidated from the original seven (brand-brief §5): the category tiles
+	 * and the footer link to these slugs directly, so they have to be the ones
+	 * the seeder creates. See LEGACY_CATEGORIES for the previous set.
 	 *
 	 * @var array<string,array{name:string,description:string}>
 	 */
 	private const CATEGORIES = array(
-		'panes-de-masa-madre' => array(
-			'name'        => 'Panes de Masa Madre',
-			'description' => 'Nuestras hogazas de fermentación natural: corteza de fuego, miga alveolada y hasta dos días de tiempo. El corazón de Pacífica.',
+		'pan-rustico' => array(
+			'name'        => 'Pan Rústico',
+			'description' => 'Hogazas de masa madre de fermentación lenta: corteza de fuego, miga alveolada y hasta dos días de tiempo. El corazón de Pacífica.',
 		),
-		'bolleria-croissants' => array(
-			'name'        => 'Bollería & Croissants',
-			'description' => 'Viennoiserie laminada a mano: croissants, hojaldres y pan dulce con la paciencia que exige la mantequilla.',
+		'pan-dulce'   => array(
+			'name'        => 'Pan Dulce',
+			'description' => 'Bollería laminada a mano, galletas y los clásicos del mostrador. Pequeños lujos para acompañar el café.',
 		),
-		'dulces-postres'      => array(
-			'name'        => 'Dulces & Postres',
-			'description' => 'Roles de canela, alfajores, canelés y postres de la casa. Pequeños lujos para acompañar el café.',
+		'varios'      => array(
+			'name'        => 'Varios',
+			'description' => 'Café de olla, bebidas de temporada y la despensa de la casa: cajas de regalo y surtidos listos para compartir.',
 		),
-		'galletas'            => array(
-			'name'        => 'Galletas',
-			'description' => 'Galletas horneadas en casa, del jengibre especiado al chocolate con sal de mar. Crujientes por fuera, tiernas al centro.',
-		),
-		'pasteles'            => array(
-			'name'        => 'Pasteles',
-			'description' => 'Pasteles por encargo para tus celebraciones. Se elaboran a mano con anticipación; reserva indicando tu fecha de recolección.',
-		),
-		'cafe-bebidas'        => array(
-			'name'        => 'Café & Bebidas',
-			'description' => 'Café de olla, espresso de la casa y bebidas de temporada. El compañero natural de nuestro pan.',
-		),
-		'cajas-regalo'        => array(
-			'name'        => 'Cajas & Regalo',
-			'description' => 'Cajas de regalo y surtidos de catering. Lo mejor del obrador, listo para compartir.',
-		),
+	);
+
+	/**
+	 * Categories seeded before the catalogue was consolidated, each mapped to
+	 * its replacement.
+	 *
+	 * Kept for two reasons: an install seeded with the old taxonomy can be
+	 * migrated in place without losing product assignments, and uninstall can
+	 * still remove terms this plugin created. Every value must be a key of
+	 * CATEGORIES.
+	 *
+	 * @var array<string,string>
+	 */
+	private const LEGACY_CATEGORIES = array(
+		'panes-de-masa-madre' => 'pan-rustico',
+		'bolleria-croissants' => 'pan-dulce',
+		'dulces-postres'      => 'pan-dulce',
+		'galletas'            => 'pan-dulce',
+		'pasteles'            => 'pan-dulce',
+		'cafe-bebidas'        => 'varios',
+		'cajas-regalo'        => 'varios',
 	);
 
 	/**
@@ -159,7 +169,65 @@ final class Installer {
 			}
 		}
 
+		$report['migrated'] = self::migrate_legacy_categories( $map );
+
 		return array( 'map' => $map, 'report' => $report );
+	}
+
+	/**
+	 * Move products off the legacy taxonomy and retire the old terms.
+	 *
+	 * Runs only after the current categories exist, so every legacy term has
+	 * somewhere to send its products. The new term is *appended* rather than
+	 * set outright, then the legacy term is deleted — WordPress drops the old
+	 * relationships with it. Doing it in that order keeps a product that
+	 * somehow belongs to two legacy categories from losing one of them.
+	 *
+	 * Only terms this plugin created (MARKER_META) are deleted; a category
+	 * added by hand under a legacy slug is left in place, since removing
+	 * someone else's taxonomy is not ours to do.
+	 *
+	 * @param array<string,int> $map Current slug => term_id.
+	 * @return int Number of product reassignments performed.
+	 */
+	private static function migrate_legacy_categories( array $map ): int {
+		$moved = 0;
+
+		foreach ( self::LEGACY_CATEGORIES as $old_slug => $new_slug ) {
+			$old = get_term_by( 'slug', $old_slug, 'product_cat' );
+			if ( ! $old instanceof \WP_Term ) {
+				continue;
+			}
+
+			$target = (int) ( $map[ $new_slug ] ?? 0 );
+			if ( $target <= 0 ) {
+				continue;
+			}
+
+			$product_ids = get_objects_in_term( $old->term_id, 'product_cat' );
+			if ( is_array( $product_ids ) ) {
+				foreach ( $product_ids as $product_id ) {
+					$result = wp_set_object_terms( (int) $product_id, array( $target ), 'product_cat', true );
+					if ( ! is_wp_error( $result ) ) {
+						++$moved;
+					}
+				}
+			}
+
+			if ( get_term_meta( $old->term_id, self::MARKER_META, true ) ) {
+				wp_delete_term( $old->term_id, 'product_cat' );
+			}
+		}
+
+		if ( $moved > 0 ) {
+			// Category counts drive the storefront filters; stale ones show
+			// empty tiles.
+			foreach ( $map as $term_id ) {
+				wp_update_term_count_now( array( (int) $term_id ), 'product_cat' );
+			}
+		}
+
+		return $moved;
 	}
 
 	/* ---------------------------------------------------------------------- */
@@ -590,7 +658,14 @@ final class Installer {
 			}
 		}
 
-		foreach ( array_keys( self::CATEGORIES ) as $slug ) {
+		// Legacy slugs included so an install seeded before the catalogue was
+		// consolidated still uninstalls cleanly instead of orphaning terms.
+		$category_slugs = array_merge(
+			array_keys( self::CATEGORIES ),
+			array_keys( self::LEGACY_CATEGORIES )
+		);
+
+		foreach ( $category_slugs as $slug ) {
 			$term = get_term_by( 'slug', $slug, 'product_cat' );
 			if ( $term instanceof \WP_Term && get_term_meta( $term->term_id, self::MARKER_META, true ) ) {
 				wp_delete_term( $term->term_id, 'product_cat' );
