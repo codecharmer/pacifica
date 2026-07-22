@@ -43,6 +43,37 @@ final class InboundController implements Bootable {
 
 	public function boot(): void {
 		add_action( 'rest_api_init', array( $this, 'register_routes' ) );
+		add_filter( 'restricted_site_access_is_restricted', array( $this, 'allow_provider_webhook' ), 10, 2 );
+	}
+
+	/**
+	 * Keep the provider webhook reachable when the site is behind Restricted
+	 * Site Access (10up).
+	 *
+	 * Gating the whole front end would otherwise swallow inbound status
+	 * replies, silently breaking the SMS workflow. This route does not depend
+	 * on site-level access control: every request is verified against the
+	 * Twilio signature in handle(), so opening it changes nothing about its
+	 * security posture.
+	 *
+	 * @param bool   $is_restricted Whether the current request is restricted.
+	 * @param object $wp            The WP request object (unused).
+	 * @return bool
+	 */
+	public function allow_provider_webhook( $is_restricted, $wp = null ) {
+		unset( $wp );
+
+		$path = isset( $_SERVER['REQUEST_URI'] ) ? wp_unslash( $_SERVER['REQUEST_URI'] ) : '';
+		if ( ! is_string( $path ) || '' === $path ) {
+			return $is_restricted;
+		}
+
+		$needle = '/' . trim( self::NAMESPACE, '/' ) . self::ROUTE;
+		if ( false !== strpos( sanitize_text_field( $path ), $needle ) ) {
+			return false;
+		}
+
+		return $is_restricted;
 	}
 
 	public function register_routes(): void {
